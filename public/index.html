@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns:ng="http://angularjs.org"
+      xmlns:fb="http://ogp.me/ns/fb#"
+      id="ng-app"
+      lang="en"
+      ng-controller="MainCtrl">
+<head>
+    <!-- Meta tags -->
+    <meta http-equiv="Content-Language" content="en" >
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible"
+          content="IE=edge">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="viewport"
+          content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Do Your Own Mortgage</title>
+    <meta name=description content="Do Your Own Mortgage"/>
+
+    <!-- Main CSS -->
+    <link href="resources/css/main.css"
+          rel="stylesheet">
+    <link rel="stylesheet"
+          href="//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/themes/smoothness/jquery-ui.css" />
+    <!--<link href="resources/css/flat-ui.css"-->
+          <!--rel="stylesheet">-->
+
+    <!--[if lt IE 9]>
+        <script type="text/javascript"
+                src="resources/lib/js/json3.min.js"></script>
+        <script type="text/javascript"
+                src="resources/lib/js/html5shiv.js"></script>
+        <script type="text/javascript"
+                src="resources/lib/js/respond.min.js"></script>
+        <script type="text/javascript">
+            document.createElement('ng-view');
+            document.createElement('ng:view');
+            document.createElement('nav');
+        </script>
+    <![endif]-->
+
+</head>
+<body ng-class="{'darkBody':isThis('/apply-now')}">
+
+    <div ng-nav class="hidden-print"></div>
+    <div ng-view></div>
+    <div ng-foot class="hidden-print"></div>
+
+<script data-main="resources/js/main"
+        type="text/javascript"
+        src="resources/lib/js/require.js"></script>
+
+</body>
+</html>

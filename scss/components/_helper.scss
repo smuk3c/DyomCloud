@@ -1,0 +1,108 @@
+.text-center-xs {
+  @media screen and (max-width:$screen-xs-max){
+    text-align: center;
+  }
+}
+
+.text-center-sm {
+  @media screen and (min-width:$screen-sm-min) and (max-width:$screen-sm-max){
+    text-align: center;
+  }
+}
+
+.text-right-md {
+  @media screen and (min-width:$screen-md-min) and (max-width:$screen-md-max){
+    text-align: right;
+  }
+}
+
+.text-right-lg {
+  @media screen and (min-width:$screen-lg-min) {
+    text-align: right;
+  }
+}
+
+.margin-top-bottom {
+  margin: 15px 0px;
+}
+
+.text-red{
+  color: $red;
+}
+
+.text-gray {
+  color: #ededee;
+}
+
+@media print {
+  .page-break {
+    page-break-after: always;
+    width: 100%;
+    height: 1px;
+  }
+}
+
+$barColor: $blue;
+$overlayColor: #f5f5f5;
+$backColor: #2f3439;
+
+.progress-radial {
+  margin: 10px auto;
+  position: relative;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  border: 2px solid $backColor;
+  background-color: $barColor;
+  z-index: 1034;
+}
+
+.progress-radial .overlay {
+  position: absolute;
+  width: 70px;
+  height: 70px;
+  background-color: $overlayColor;
+  border-radius: 50%;
+  margin-left: 37px;
+  margin-top: 35px;
+  text-align: center;
+  font-size: 28px;
+  padding-top: 12px;
+  font-weight: 800;
+
+  small {
+    font-size: 10px;
+    display: block;
+    color: #fff;
+    margin-top:8px;
+  }
+
+}
+
+.green {
+  color: #2ecc71 !important;
+}
+
+.top-mar-form {
+  margin-top:30px !important;
+}
+
+$step: 1;
+
+$loops: round(100 / $step);
+$increment: 360 / $loops;
+$half: round($loops / 2);
+@for $i from 0 through $loops {
+
+  .progress-#{$i*$step} {
+  @if $i < $half {
+    $nextdeg: 90deg + ( $increment * $i );
+    background-image: linear-gradient(90deg, $backColor 50%, transparent 50%, transparent), linear-gradient($nextdeg, $barColor 50%, $backColor 50%, $backColor);
+  }
+  @else {
+    $nextdeg: -90deg + ( $increment * ( $i - $half ) );
+    background-image: linear-gradient($nextdeg, $barColor 50%, transparent 50%, transparent), linear-gradient(270deg, $barColor 50%, $backColor 50%, $backColor);
+  }
+  }
+
+}

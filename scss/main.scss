@@ -1,0 +1,20 @@
+// Libraries
+@import 'libraries/fonts';
+@import 'libraries/variables';
+@import 'libraries/mixins';
+
+// Vendor
+@import 'vendor/bootstrap/bootstrap';
+@import 'vendor/font-awesome/font-awesome';
+@import 'libraries/animations';
+
+// Components
+@import 'components/datePicker';
+@import 'components/body';
+@import 'components/buttons';
+@import 'components/helper';
+@import 'components/navigations';
+
+// Sections
+@import 'sections/landing';
+

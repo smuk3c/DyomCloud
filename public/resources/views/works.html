@@ -1,0 +1,38 @@
+<div class="container special-margin-container">
+    <div class="row">
+        <div class="col-xs-12 text-center special-margin">
+            <h2 class="blue-text aleoFont">How to do your own mortgage</h2>
+        </div>
+    </div>
+    <div class="row">
+       <h2 class="special-margin aleoFont">Documents You will Need</h2>
+       <div class="row">
+           <div class="col-md-6">
+               <img src="resources/img/document_1.jpg" class="img-responsive">
+               <h3 class="blue-l-t">T4 Slip , Lines 20-30</h3>
+               <p>Tumblr beard paleo, viral 90's banh mi sartorial tofu photo booth Pitchfork distillery biodiesel skateboard meh Vice.</p>
+           </div>
+           <div class="col-md-6">
+               <img src="resources/img/document_2.jpg" class="img-responsive">
+               <h3 class="blue-l-t">Notice of Assesment</h3>
+               <p>Tumblr beard paleo, viral 90's banh mi sartorial tofu photo booth Pitchfork distillery biodiesel skateboard meh Vice.</p>
+           </div>
+       </div>
+    </div>
+    <div class="row">
+        <h2 class="special-margin aleoFont">Frequently Asked Questions</h2>
+
+        <div class="bord"
+             ng-repeat="faq in faqs">
+            <div class="cursor grayed pad"
+                  ng-click="setFaq($index)">
+                <strong>{{faq.title}}</strong>
+            </div>
+            <div class="bor-topa pad"
+                 ng-show="isFaqIndex($index)">
+                {{faq.desc}}
+            </div>
+        </div>
+
+    </div>
+</div>

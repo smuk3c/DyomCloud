@@ -1,0 +1,14 @@
+{
+    "applications": {
+        "Do Your Own Mortgage": {
+            "applicationId": "hsBvw7qWl5b2ZowdwgN50HWUMNu3cF3gKrnu6n3l", 
+            "masterKey": "icxS7aCFW9D7IpXP6T4UjgjorJLJgKz8E1pvz25F"
+        }, 
+        "_default": {
+            "link": "Do Your Own Mortgage"
+        }
+    }, 
+    "global": {
+        "parseVersion": "1.2.19"
+    }
+}

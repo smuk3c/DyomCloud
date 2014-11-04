@@ -1,0 +1,45 @@
+<nav class="top-navigation"
+     nav-check>
+    <div class="container">
+        <div class="row">
+            <div class="col-xs-12 col-md-4 text-center-sm">
+                <a href="#/">
+                <img src="resources/img/logo.png"
+                        class="cursor"/>
+                </a>
+                <button class="btn btn-sm btn-default pull-right visible-xs margin-top-bottom"
+                        ng-click="togleNav()"><i class="fa fa-bars"></i></button>
+            </div>
+            <div class="col-xs-12 col-md-8 text-center-xs text-center-sm"
+                 ng-class="{'active-nav': isNavActive(), 'hidden-xs': !isNavActive()}">
+                <ul class="list-unstyled list-inline nav-links text-right-md text-right-lg">
+                    <li ng-class="{'active':isThis('/')}">
+                        <a href="#/"
+                           ng-click="togleNav()">
+                            Home
+                        </a>
+                    </li>
+                    <li   ng-class="{'active':isThis('/how-it-works')}">
+                        <a href="#/how-it-works"
+                           ng-click="togleNav()">
+                            How it Works
+                        </a>
+                    </li>
+                    <li  ng-class="{'active':isThis('/about')}">
+                        <a href="#/about"
+                           ng-click="togleNav()">
+                            About us
+                        </a>
+                    </li>
+                    <li ng-show="!isThis('/apply-now')"
+                        class="special-btn-nav">
+                        <a href="#/apply-now"
+                           ng-click="togleNav()">
+                            Start your application
+                        </a>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</nav>

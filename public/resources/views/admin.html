@@ -1,0 +1,74 @@
+<div class="container padding-top" style="margin:50px auto;">
+    <div class="row">
+        <div class="col-xs-12">
+            <div class="row">
+                <div class="col-sm-6"><h1>{{count}} Applications</h1></div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                    <select name="limit"
+                            class="form-control"
+                            ng-model="limit">
+                        <option value="1">1 application/page</option>
+                        <option value="5">5 application/page</option>
+                        <option value="10">10 application/page</option>
+                        <option value="25">25 application/page</option>
+                        <option value="50">50 application/page</option>
+                    </select>
+                    </div>
+                </div>
+                <div class="col-md-3">
+                    <div class="form-group">
+                    <select name="order"
+                            class="form-control"
+                            ng-model="order">
+                        <option value="1">Order by time Desc</option>
+                        <option value="2">Order by time Asc</option>
+                    </select>
+                    </div>
+                </div>
+            </div>
+
+            <hr/>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-xs-12 text-center">
+            <i class="fa fa-spin fa-spinner fa-5x" ng-show="isload()"></i>
+        </div>
+    </div>
+    <div class="row"
+         ng-repeat="application in applications track by $index"
+         ng-show="!isload()">
+        <div class="col-xs-12">
+           <h4 class="clearfix">
+               <span class="pull-left">
+                    <a href="#/application/{{application.id}}">
+                    #{{application.id}}
+                    </a>
+                   <small> {{application.get('Personal1Fname')}} {{application.get('Personal1Lname')}}</small>
+               </span>
+               <small class="pull-right">
+                   <i class="fa fa-clock-o"></i> {{ application.createdAt | date:'medium' }}
+                   <i class="fa fa-trash-o text-danger cursor"
+                      ng-click="application.destroy(); remove($index)"></i>
+               </small>
+           </h4>
+           <hr/>
+        </div>
+    </div>
+    <div class="row"
+         ng-show="isPagination()">
+         <div class="row">
+             <div class="col-xs-12">
+                 <ul class="pagination">
+                     <li ng-class="{'disabled' : offset == 0 || isload()}"><a href="#" ng-disabled="offset == 0 || isload()" prevent-def ng-click="decreaseOffset()">&laquo;</a></li>
+
+                     <li ng-repeat="page in  numPages() track by $index"
+                         ng-class="{'disabled' : isload(), 'active' : $index == offset}"><a href="#" prevent-def ng-click="setOffset($index)">{{$index+1}}</a></li>
+
+                     <li ng-class="{'disabled' : offset+1 >= pages || isload()}"><a href="#" ng-disabled="offset+1 >= pages || isload()" prevent-def ng-click="increaseOffset()">&raquo;</a></li>
+                 </ul>
+             </div>
+         </div>
+    </div>
+</div>
