@@ -1199,20 +1199,24 @@ var controllers = {};
 
         $scope.faqs = [
             {
-                "title" : "faq 1",
-                "desc"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula purus, facilisis ac ullamcorper quis, ultrices eget lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam elementum ipsum vel justo facilisis, sit amet pulvinar purus congue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean justo diam, elementum id semper at, pretium in risus. In viverra, lectus eu sodales eleifend, nulla justo vehicula odio, et porta tortor metus a erat. Proin lectus sem, ornare sit amet eros at, rutrum sodales risus."
+                "title" : "Q: How long will this process take?",
+                "desc"  : "A: Typically an application will take anywhere between 5 and 10 minutes to complete. Once completed, we will call you within 24hrs with an approval or solutions.  Some cases will require more time, depending on the complexity of the application."
             },
             {
-                "title" : "faq 2",
-                "desc"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula purus, facilisis ac ullamcorper quis, ultrices eget lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam elementum ipsum vel justo facilisis, sit amet pulvinar purus congue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean justo diam, elementum id semper at, pretium in risus. In viverra, lectus eu sodales eleifend, nulla justo vehicula odio, et porta tortor metus a erat. Proin lectus sem, ornare sit amet eros at, rutrum sodales risus."
+                "title" : "Q: Is our information secure? How is our information treated?",
+                "desc"  : "A: We take privacy serious. Once you submit your application, one of our licensed mortgage agents will review your application and submit it directly to the financial institution for review."
             },
             {
-                "title" : "faq 3",
-                "desc"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula purus, facilisis ac ullamcorper quis, ultrices eget lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam elementum ipsum vel justo facilisis, sit amet pulvinar purus congue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean justo diam, elementum id semper at, pretium in risus. In viverra, lectus eu sodales eleifend, nulla justo vehicula odio, et porta tortor metus a erat. Proin lectus sem, ornare sit amet eros at, rutrum sodales risus."
+                "title" : "Q: When do I get paid my commission or cash-back?",
+                "desc"  : "A: Once the deal has been funded, you or your solicitor will receive payment within 24hrs by electronic email or wire transfer."
             },
             {
-                "title" : "faq 4",
-                "desc"  : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Donec ligula purus, facilisis ac ullamcorper quis, ultrices eget lacus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Etiam elementum ipsum vel justo facilisis, sit amet pulvinar purus congue. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia Curae; Aenean justo diam, elementum id semper at, pretium in risus. In viverra, lectus eu sodales eleifend, nulla justo vehicula odio, et porta tortor metus a erat. Proin lectus sem, ornare sit amet eros at, rutrum sodales risus."
+                "title" : "Q: Can I pick choose my bank or lender?",
+                "desc"  : "A: Yes, please indicate your lender of choice in the comment section of the application."
+            },
+            {
+                "title" : "Q: Where do we sign documents?",
+                "desc"  : "A: Once we have your approval, we will contact you to make arrangements.  We can meet at our office, or one of our mobile mortgage agents will be happy to come to you."
             }
         ];
 

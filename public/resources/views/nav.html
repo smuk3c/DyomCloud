@@ -2,7 +2,7 @@
      nav-check>
     <div class="container">
         <div class="row">
-            <div class="col-xs-12 col-md-4 text-center-sm">
+            <div class="col-xs-12 col-sm-2 col-md-4 text-center-sm">
                 <a href="#/">
                 <img src="resources/img/logo.png"
                         class="cursor"/>
@@ -10,9 +10,9 @@
                 <button class="btn btn-sm btn-default pull-right visible-xs margin-top-bottom"
                         ng-click="togleNav()"><i class="fa fa-bars"></i></button>
             </div>
-            <div class="col-xs-12 col-md-8 text-center-xs text-center-sm"
+            <div class="col-xs-12 col-sm-10 col-md-8 text-center-xs text-right-md text-right-lg text-right-sm"
                  ng-class="{'active-nav': isNavActive(), 'hidden-xs': !isNavActive()}">
-                <ul class="list-unstyled list-inline nav-links text-right-md text-right-lg">
+                <ul class="list-unstyled list-inline nav-links">
                     <li ng-class="{'active':isThis('/')}">
                         <a href="#/"
                            ng-click="togleNav()">
@@ -35,7 +35,9 @@
                         class="special-btn-nav">
                         <a href="#/apply-now"
                            ng-click="togleNav()">
-                            Start your application
+                            <span ng-show="sessionUser == null">Start</span>
+                            <span ng-show="sessionUser != null">Continue</span>
+                            your application <i class="fa fa-angle-right"></i>
                         </a>
                     </li>
                 </ul>

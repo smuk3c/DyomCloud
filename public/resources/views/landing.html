@@ -27,7 +27,7 @@
                  </div>
              </div>
              <div class="row">
-                 <div class="col-md-4">
+                 <div class="col-md-4 mar-xs">
                      <div class="btn-drop">
                          <button class="clearfix"
                                  ng-click="togleDrop=!togleDrop">
@@ -51,7 +51,7 @@
                          </ul>
                      </div>
                  </div>
-                 <div class="col-md-4">
+                 <div class="col-md-4 mar-xs">
                      <div class="btn-drop">
                          <button class="clearfix"
                                  ng-click="togleDrop2=!togleDrop2">
@@ -70,7 +70,7 @@
                          </ul>
                      </div>
                  </div>
-                 <div class="col-md-4">
+                 <div class="col-md-4 mar-xs">
                      <div class="form-group text-center">
                          <div class="blue-box">Mortage Rate: {{getRate()}}</div>
                      </div>
@@ -85,26 +85,25 @@
                      {{getMortage('rebate') | noFractionCurrency}}
                      <small>Your Rebate</small>
                  </h1>
-                 <button class="btn btn-special"
+                 <button class="btn btn-special mar-xs-top"
                          ng-click="next('apply-now')"><span class="pull-left margin-top-small">Continue</span> <i class="fa fa-angle-right fa-2x pull-right"></i> </button>
              </div>
          </div>
      </div>
 
 </div>
-<div class="lenders text-center hidden-xs hidden-sm"
-     ng-scrolling>
-    <div class="inner clearfix">
-        <img src="resources/img/logos/b2b_bank_logo.png" />
-        <img src="resources/img/logos/duca_logo.png" />
-        <img src="resources/img/logos/first_national_logo.png" />
-        <img src="resources/img/logos/hometrust_logo.png" />
-        <img src="resources/img/logos/industrial_alliance_logo.png" />
-        <img src="resources/img/logos/mcap_logo.png" />
-        <img src="resources/img/logos/meridian.png" />
-        <img src="resources/img/logos/scotiabank_logo.png" />
-        <img src="resources/img/logos/street_capital_logo.png" />
-        <img src="resources/img/logos/td_logo.png" />
+<div class="lenders text-center">
+    <div ng-scrolling>
+        <div class="marleftright"><span><img src="resources/img/logos/b2b_bank_logo.png" class="img-responsive" /></span></div>
+        <div class="marleftright"><span><img src="resources/img/logos/duca_logo.png" class="img-responsive" /></span></div>
+        <div class="marleftright"><span><img src="resources/img/logos/first_national_logo.png" class="img-responsive" /></span></div>
+        <div class="marleftright"><span><img src="resources/img/logos/hometrust_logo.png" class="img-responsive" /></span></div>
+        <div class="marleftright"><span><img src="resources/img/logos/industrial_alliance_logo.png" class="img-responsive" /></span></div>
+        <div class="marleftright"><span><img src="resources/img/logos/mcap_logo.png" class="img-responsive" /></span></div>
+        <div class="marleftright"><span><img src="resources/img/logos/meridian.png" class="img-responsive" /></span></div>
+        <div class="marleftright"><span><img src="resources/img/logos/scotiabank_logo.png" class="img-responsive" /></span></div>
+        <div class="marleftright"><span><img src="resources/img/logos/street_capital_logo.png" class="img-responsive" /></span></div>
+        <div class="marleftright"><span><img src="resources/img/logos/td_logo.png" class="img-responsive" /></span></div>
     </div>
 </div>
 
@@ -120,22 +119,22 @@
                 <div class="min-height-100">
                     <img src="resources/img/clock.png" />
                 </div>
-                <h3>It Saves You Time</h3>
-                <p class="text-muted">Complete your application in less than 5 minutes. We’ll do the rest.</p>
+                <h3>Your Mortgage on Your Time</h3>
+                <p class="text-muted">Submit a full mortgage application from the comfort of your own home. Save your application and finish off whenever you are ready.</p>
             </div>
             <div class="col-md-3 col-md-offset-1  text-center-xs">
                 <div class="min-height-100">
                     <img src="resources/img/credit-card.png" />
                 </div>
-                <h3>You Get Cash Back</h3>
-                <p class="text-muted">Get a great mortgage rate, plus you get cash back payable on closing.</p>
+                <h3>Cash Back on Closing</h3>
+                <p class="text-muted">Get a rebate on your mortgage on the closing date to help cover closing costs, no strings attached.</p>
             </div>
             <div class="col-md-3 col-md-offset-1  text-center-xs">
                 <div class="min-height-100">
                     <img src="resources/img/lock.png" />
                 </div>
-                <h3>It’s Secure</h3>
-                <p class="text-muted">Your information is secure and will only be shared with the institutions involved in your mortgage application.</p>
+                <h3>Simple and Secure</h3>
+                <p class="text-muted">Step-by-step instructions on everything you need to finish your mortgage application. Hosted on super secure servers with 128-bit encyption.</p>
             </div>
         </div>
     </div>

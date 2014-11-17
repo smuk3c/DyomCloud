@@ -15,7 +15,8 @@ require.config({
         angularSanitate: mainUrl+'resources/lib/js/angularjs/angular-sanitize.min',
         angularTouch: mainUrl+'resources/lib/js/angularjs/angular-touch.min',
         datePicker: mainUrl+'resources/lib/js/bootstrap/bootstrap-datepicker',
-        parse: mainUrl+'resources/lib/js/parse-1.2.19.min'
+        parse: mainUrl+'resources/lib/js/parse-1.2.19.min',
+        slick: mainUrl+'resources/lib/js/slick.min'
     },
     baseUrl: 'resources/js/',
     shim: {
@@ -32,7 +33,8 @@ require.config({
         'angularSanitate': {exports: 'ngSanitize',  deps: ['angular'] },
         'angularTouch': {exports: 'ngTouch',  deps: ['angular'] },
         'datePicker': {deps: ['angular', 'bootstrap'] },
-        'parse': { exports: 'Parse' }
+        'parse': { exports: 'Parse' },
+        'slick': {exports: 'slick'}
     },
     priority: [
         'jquery',

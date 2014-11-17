@@ -25,17 +25,22 @@ define(['app', 'controllers/controllers', 'services/services'], function (app) {
                 when('/how-it-works', {
                     templateUrl: 'resources/views/works.html',
                     controller: 'StaticCtrl',
-                    authenticate: true
+                    authenticate: false
                 }).
                 when('/about', {
                     templateUrl: 'resources/views/contact.html',
                     controller: 'StaticCtrl',
-                    authenticate: true
+                    authenticate: false
                 }).
                 when('/application/:id', {
                     templateUrl: 'resources/views/applicationPrint.html',
                     controller: 'AdminAppCtrl',
-                    authenticate: true
+                    authenticate: false
+                }).
+                when('/privacy', {
+                    templateUrl: 'resources/views/privacy.html',
+                    controller: 'StaticCtrl',
+                    authenticate: false
                 }).
                 otherwise({
                     redirectTo: '/',

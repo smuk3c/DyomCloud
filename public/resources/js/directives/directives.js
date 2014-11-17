@@ -1,4 +1,4 @@
-define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'datePicker'], function ($, app, FB, twttr) {
+define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'datePicker', 'slick'], function ($, app, FB, twttr) {
 
 // === DIRECTIVES OBJECT
     var directives = {};
@@ -196,38 +196,21 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
 
     directives.ngScrolling = [function(){
         return function (scope, element) {
-            function loop() {
-                $(element).animate({scrollLeft: 1680}, 200000, "linear", function(){
-                    $(element).animate({scrollLeft: 0}, 200000, "linear", function(){
-                        loop();
-                    });
-                });
-            }
-            loop();
+            $(element).slick({
+                infinite: true,
+                speed: 500,
+                slidesToShow: 5,
+                slidesToScroll: 2,
+                autoplay: true,
+                autoplaySpeed: 1000,
+                dots: false,
+                arrows: false,
+                centerMode: true,
+                variableWidth: true,
+                adaptiveHeight: true
+            });
         }
     }];
-
-//    directives.resize = ['$window',  '$rootScope', function($window, $rootScope) {
-//        return function (scope, element) {
-//
-//                var w = $(window);
-//
-//                scope.windowHeight = function () {
-//                    return  w.height();
-//                };
-//
-//                scope.$watch( "windowHeight", function (newValue, oldValue) {
-//                    console.log(newValue);
-//                    scope.windowHeight = newValue;
-//                }, true);
-//
-//                w.bind('resize', function () {
-//                    $rootScope.$apply();
-//                });
-//
-//
-//        }
-//    }];
 
     directives.ngTyping = ['$timeout', function($timeout) {
         return function (scope, element, attr) {
