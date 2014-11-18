@@ -198,11 +198,11 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
         return function (scope, element) {
             $(element).slick({
                 infinite: true,
-                speed: 500,
+                speed: 1500,
                 slidesToShow: 5,
                 slidesToScroll: 2,
                 autoplay: true,
-                autoplaySpeed: 1000,
+                autoplaySpeed: 1,
                 dots: false,
                 arrows: false,
                 centerMode: true,
