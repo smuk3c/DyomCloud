@@ -17,15 +17,6 @@
     <div class="row padding-top">
         <div class="hidden-xs hidden-sm col-md-4 col-lg-3">
 
-            <div class="progress-box">
-                <div class="progress-radial progress-{{progress}}">
-                    <div class="overlay">
-                        {{progress}}%
-                        <small class="text-block">Application Progress</small>
-                    </div>
-                </div>
-            </div>
-
             <div class="fly-box">
                 <ul class="nav nav-pills nav-stacked">
                     <li ng-class="{'active':isStep(0)}"><a href="#" prevent-def ng-click="setStep(0)"><i class="fa fa-file"></i> Mortage Details <i class="fa green fa-check-circle-o pull-right mart" ng-show="isValidStep(1)"></i> </a></li>
@@ -64,7 +55,18 @@
                     <li ng-class="{'active':isStep(10)}"><a href="#" ng-click="setStep(10)" prevent-def><i class="fa fa-exclamation-circle"></i> Other Information <i class="fa green fa-check-circle-o pull-right mart" ng-show="appStep>10"></i></a></li>
                     <li ng-class="{'active':isStep(11)}"><a href="#" ng-click="setStep(11)" prevent-def><i class="fa fa-check-circle-o"></i> Submit application</a></li>
                     <li class="clearfix active"><a href="#" prevent-def><strong>Rebate:</strong> <span class="pull-right">{{getMortage('rebate') | noFractionCurrency}}</span></a></li>
+                    <li class="clearfix active" ng-if="Application.get('PaymentSchedule') == 'Monthly'"><a href="#" prevent-def><strong>Monthly payment:</strong> <span class="pull-right">{{Application.get('MortagePaymentAmount') | noFractionCurrency}}</span></a></li>
+                    <li class="clearfix active" ng-if="Application.get('PaymentSchedule') == 'Bi-weekly'"><a href="#" prevent-def><strong>Bi-weekly payment:</strong> <span class="pull-right">{{Application.get('MortagePaymentAmount') | noFractionCurrency}}</span></a></li>
                 </ul>
+            </div>
+
+            <div class="progress-box">
+                <div class="progress-radial progress-{{progress}}">
+                    <div class="overlay">
+                        {{progress}}%
+                        <small class="text-block">Application Progress</small>
+                    </div>
+                </div>
             </div>
 
         </div>
@@ -560,6 +562,20 @@
                                         <option value="25 years">25 years</option>
                                         <option value="30 years">30 years</option>
                                         <option value="35 years">35 years</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="col-sm-6">
+                                <div class="form-group">
+                                    <label>Payment Schedule: <span class="text-danger">*</span></label>
+                                    <select class="form-control input-sm"
+                                            name="Application.PaymentSchedule"
+                                            required
+                                            ng-required="true"
+                                            ng-model="Application.PaymentSchedule">
+                                        <option value="">Select Payment Schedule</option>
+                                        <option value="Monthly">Monthly</option>
+                                        <option value="Bi-weekly">Bi-weekly</option>
                                     </select>
                                 </div>
                             </div>
@@ -2998,7 +3014,7 @@
         <div class="row"
              ng-show="sessionUser == null">
             <div class="col-xs-10 col-xs-offset-1 text-center special-box">
-                <h3>Make sure your data stay where it is when you came back.<br/> Save your pogress.</h3>
+                <h3>Make sure your data stay where it is when you came back.<br/> Save your progress.</h3>
                     <button class="btn btn-lg btn-primary"
                             data-toggle="modal" data-target="#register">Register</button>
                     <button class="btn btn-lg btn-default"

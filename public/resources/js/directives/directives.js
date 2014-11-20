@@ -235,7 +235,7 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
     directives.ngLike = ['$timeout', function($timeout){
         return function($scope, element, attr){
             var start = function(){
-                var html = '<div class="fb-like" data-href="https://fbappsi.com/dyom/" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>';
+                var html = '<div class="fb-like" data-href="https://www.facebook.com/doyourownmortgage" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>';
                 $(element).html(html)
                 FB.XFBML.parse(element.parent()[0]);
             };

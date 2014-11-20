@@ -1,4 +1,5 @@
 <nav class="top-navigation"
+     ng-show="!isThis('/become-partner')"
      nav-check>
     <div class="container">
         <div class="row">
@@ -38,6 +39,17 @@
                             <span ng-show="sessionUser == null">Start</span>
                             <span ng-show="sessionUser != null">Continue</span>
                             your application <i class="fa fa-angle-right"></i>
+                        </a>
+                    </li>
+                    <li ng-show="isThis('/apply-now')"
+                        class="special-btn-nav">
+                        <a href="#"
+                           prevent-def
+                           ng-show="sessionUser != null"
+                           ng-click="saveAppR()"
+                           ng-disabled="isAppSavingR()">
+                            <span ng-show="!isAppSavingR()"><span ng-show="!isSaved()">Save my Application</span> <span ng-show="isSavedR()"><i class="fa fa-check-circle"></i></span></span>
+                            <span ng-show="isAppSavingR()">Saving <i class="fa fa-spin fa-spinner"></i></span>
                         </a>
                     </li>
                 </ul>

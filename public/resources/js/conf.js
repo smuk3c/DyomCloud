@@ -25,9 +25,7 @@ define(['app','parse','services/services'], function (app, Parse) {
         });
 
         $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
-            $('html, body').animate({
-                scrollTop: 0
-            }, 500);
+            $('html, body').scrollTop(0);
         });
 
     }]);

@@ -42,6 +42,11 @@ define(['app', 'controllers/controllers', 'services/services'], function (app) {
                     controller: 'StaticCtrl',
                     authenticate: false
                 }).
+                when('/become-partner', {
+                    templateUrl: 'resources/views/becomePartner.html',
+                    controller: 'StaticCtrl',
+                    authenticate: false
+                }).
                 otherwise({
                     redirectTo: '/',
                     authenticate: false

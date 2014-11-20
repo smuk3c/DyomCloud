@@ -7762,7 +7762,7 @@ h1.morgage-sum {
     font-size: 10px;
     display: block;
     color: #fff;
-    margin-top: 8px; }
+    margin-top: 13px; }
 
 .green {
   color: #2ecc71 !important; }
@@ -8072,6 +8072,12 @@ h1.morgage-sum {
 
 .progress-100 {
   background-image: linear-gradient(90deg, #2880b9 50%, transparent 50%, transparent), linear-gradient(270deg, #2880b9 50%, #2f3439 50%, #2f3439); }
+
+.small-text {
+  font-size: 12px; }
+
+.padding-top-bottom {
+  padding: 100px 0px; }
 
 .top-navigation {
   width: 100%;

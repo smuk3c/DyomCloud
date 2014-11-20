@@ -3,7 +3,7 @@ define(['jquery', 'app', 'parse', 'bootstrap'], function ($, app, Parse) {
 // === CONTROLLERS OBJECT
 var controllers = {};
 
-    controllers.MainCtrl = ['$scope', '$location', 'Mortage',  function($scope, $location, Mortage){
+    controllers.MainCtrl = ['$rootScope', '$scope', '$location', 'Mortage',  function($rootScope, $scope, $location, Mortage){
 
         // Nav
         $scope.nav = false;
@@ -32,6 +32,20 @@ var controllers = {};
             return Mortage.getRate();
         };
 
+        $rootScope.pushSave = false;
+        $scope.saveAppR = function(){
+            $rootScope.pushSave = true;
+        };
+
+        $rootScope.autoSaving = false;
+        $scope.isAppSavingR = function(){
+            return $rootScope.autoSaving == true;
+        };
+
+        $rootScope.isSave = false;
+        $scope.isSavedR = function(){
+            return $rootScope.isSave === true;
+        }
     }];
 
     controllers.LandingCtrl = ['$window', '$scope', '$timeout', '$filter', 'Mortage',  function($window, $scope, $timeout, $filter, Mortage){
@@ -289,6 +303,10 @@ var controllers = {};
         };
         $scope.assets = [];
 
+        $rootScope.$watch("pushSave", function(){
+            $scope.saveApp();
+        });
+
         // User handling functions
 
         $scope.registerUser = function(){
@@ -379,6 +397,9 @@ var controllers = {};
                         $scope.$apply(function(){
                             $scope.autoSaving = false;
                             $scope.isSave = true;
+                            $rootScope.autoSaving = false;
+                            $rootScope.isSave = true;
+                            $rootScope.pushSave = false;
                         });
                     },
                     error: function(rsp, error) {
@@ -419,6 +440,25 @@ var controllers = {};
                         if(App) {
                             $scope.Application = App;
 
+                            if(Mortage.get("change")==true && Mortage.get("amount")!=null){
+                                $scope.Application.MortageRate = Mortage.getRate();
+
+                                $scope.Application.MortageTerm =  Mortage.get("period");
+
+                                $scope.Application.MortageType = Mortage.get("type");
+
+                                $scope.Application.PurchasePrice = Mortage.get("amount");
+                                $scope.Application.NewMortageValueRefinance =  Mortage.get("amount");
+                                $scope.Application.ExistingMortageValue =  Mortage.get("amount");
+                                $scope.Application.TotalFoundsRequired =  Mortage.get("amount");
+
+                            }
+                            else {
+                                Mortage.set("amount",  $scope.Application.PurchasePrice);
+                                Mortage.set("type",  $scope.Application.MortageType);
+                                Mortage.set("period",  $scope.Application.MortageTerm);
+                            }
+
                             if(!App.has("Personal1Email"))
                                 $scope.Application.Personal1Email = $scope.sessionUser.get("email");
 
@@ -444,25 +484,9 @@ var controllers = {};
 
                                 }
                             }
+//
 
-                            if(Mortage.get("change")==true){
-                                $scope.Application.MortageRate = Mortage.getRate();
-
-                                $scope.Application.MortageTerm =  Mortage.get("period");
-
-                                $scope.Application.MortageType = Mortage.get("type");
-
-                                $scope.Application.PurchasePrice = Mortage.get("amount");
-                                $scope.Application.NewMortageValueRefinance =  Mortage.get("amount");
-                                $scope.Application.ExistingMortageValue =  Mortage.get("amount");
-                                $scope.Application.TotalFoundsRequired =  Mortage.get("amount");
-
-                            }
-                            else {
-                                Mortage.set("amount",  $scope.Application.PurchasePrice);
-                                Mortage.set("type",  $scope.Application.MortageType);
-                                Mortage.set("period",  $scope.Application.MortageTerm);
-                            }
+                            $scope.calculateMonthlyPayment();
                         }
                         else
                             $scope.Application.user = val;
@@ -479,16 +503,41 @@ var controllers = {};
         $scope.$watch("Application.MortageTerm", function(val){
             Mortage.setPeriod("period", val);
             $scope.Application.MortageRate = Mortage.getRate();
+            $scope.calculateMonthlyPayment();
+        });
+
+        $scope.$watch("Application.MortagePurchaseDownPayment", function(val){
+            $scope.calculateMonthlyPayment();
         });
 
         $scope.$watch("Application.MortageType", function(val){
             Mortage.setPeriod("type", val);
+
+            if(val=="Variable") {
+                Mortage.setPeriod("period", "5 Year Term");
+                $scope.Application.MortageTerm = "5 Year Term";
+            }
+
             $scope.Application.MortageRate = Mortage.getRate();
+            $scope.calculateMonthlyPayment();
+        });
+
+        $scope.$watch("Application.MortageTerm", function(val){
+            Mortage.setPeriod("period", val);
+
+            if(val!="5 Year Term") {
+                Mortage.setPeriod("type", "Fixed");
+                $scope.Application.MortageType = "Fixed";
+            }
+
+            $scope.Application.MortageRate = Mortage.getRate();
+            $scope.calculateMonthlyPayment();
         });
 
         $scope.$watch("Application.PurchaseDownPercent", function(val){
             if(val!=null && val!="other" && Mortage.get("amount")!=null) {
                 $scope.Application.MortagePurchaseDownPayment = $filter('noFractionCurrency')( Mortage.get("amount").replace(/\$|,/g,'') * parseFloat(val) );
+                $scope.calculateMonthlyPayment();
             }
         });
 
@@ -503,9 +552,10 @@ var controllers = {};
                 if($scope.Application.PurchaseDownPercent != 'other' && $scope.Application.PurchaseDownPercent!=""){
                     $scope.Application.MortagePurchaseDownPayment = $filter('noFractionCurrency')( Mortage.get("amount").replace(/\$|,/g,'') * parseFloat($scope.Application.PurchaseDownPercent) );
                 }
+
+                $scope.calculateMonthlyPayment();
             }
         });
-
 
         $scope.$watch("Application.NewMortageValueRefinance", function(val){
             if(val!=null) {
@@ -514,6 +564,8 @@ var controllers = {};
                 $scope.Application.PurchasePrice =  val;
                 $scope.Application.ExistingMortageValue =  val;
                 $scope.Application.TotalFoundsRequired =  val;
+
+                $scope.calculateMonthlyPayment();
 
             }
         });
@@ -525,9 +577,9 @@ var controllers = {};
                 $scope.Application.NewMortageValueRefinance =  val;
                 $scope.Application.PurchasePrice =  val;
                 $scope.Application.TotalFoundsRequired =  val;
+                $scope.calculateMonthlyPayment();
             }
         });
-
 
         $scope.$watch("Application.TotalFoundsRequired", function(val){
             if(val!=null) {
@@ -536,17 +588,70 @@ var controllers = {};
                 $scope.Application.NewMortageValueRefinance =  val;
                 $scope.Application.ExistingMortageValue =  val;
                 $scope.Application.PurchasePrice =  val;
+                $scope.calculateMonthlyPayment();
+            }
+        });
+
+        $scope.$watch("Application.MortageAmortization", function(val){
+            if(val!=null) {
+                $scope.calculateMonthlyPayment();
+            }
+        });
+
+        $scope.$watch("Application.PaymentSchedule", function(val){
+            if(val!=null) {
+                $scope.calculateMonthlyPayment();
+            }
+        });
+
+        $scope.$watch("Application.MortagePurpose", function(val){
+            if(val!=null) {
+                $scope.calculateMonthlyPayment();
             }
         });
 
         $scope.Application.MortageRate = Mortage.getRate();
         $scope.Application.MortageTerm =  Mortage.get("period");
         $scope.Application.MortageType = Mortage.get("type");
+        $scope.Application.MortagePaymentAmount = 0;
+        $scope.Application.PaymentSchedule = "Monthly";
 
         $scope.Application.PurchasePrice = Mortage.get("amount");
         $scope.Application.NewMortageValueRefinance =  Mortage.get("amount");
         $scope.Application.ExistingMortageValue =  Mortage.get("amount");
         $scope.Application.TotalFoundsRequired =  Mortage.get("amount");
+
+        $scope.calculateMonthlyPayment = function(){
+            if($scope.Application.has('MortageAmortization') &&
+                $scope.Application.has('MortageRate') &&
+                $scope.Application.has('PurchasePrice')){
+
+
+                    var a = $scope.Application.get('MortageAmortization').split(" "),
+                        n = parseFloat(a[0]) * 12,
+                        i = (parseFloat($scope.Application.get('MortageRate'))/12)/100,
+                        p = 0;
+
+                if($scope.Application.has('PurchasePrice') && $scope.Application.get('PurchasePrice').length>0)
+                    p = parseFloat($scope.Application.get('PurchasePrice').replace(/\$|,/g,''));
+
+                if( $scope.Application.get('MortagePurpose') == "Purchase" || $scope.Application.get('MortagePurpose') == "Pre-Approval")
+                    p = p-parseFloat( $scope.Application.get('MortagePurchaseDownPayment').replace(/\$|,/g,'') );
+
+                if( $scope.Application.get('PaymentSchedule') == "Bi-weekly") {
+                        n = parseFloat(a[0]) * 26;
+                        i = (parseFloat($scope.Application.get('MortageRate'))/26)/100;
+                }
+
+                    var payment = p * ( ( i * Math.pow( (i+1), n) ) / ( Math.pow( (i+1), n) - 1 ) );
+
+                    $scope.Application.set('MortagePaymentAmount', payment);
+
+
+            }
+            else
+                $scope.Application.set('MortagePaymentAmount', 0 );
+        };
 
         $scope.steps = {
             1 : false,
@@ -570,11 +675,13 @@ var controllers = {};
                     $scope.Application.has("MortageTerm") &&
                     $scope.Application.has("MortageRate") &&
                     $scope.Application.has("MortageAmortization") &&
+                    $scope.Application.has("PaymentSchedule") &&
                     $scope.Application.get("MortagePurpose").length>0 &&
                     $scope.Application.get("MortageType").length>0 &&
                     $scope.Application.get("MortageTerm").length>0 &&
                     $scope.Application.get("MortageRate").length>0 &&
-                    $scope.Application.get("MortageAmortization").length>0) {
+                    $scope.Application.get("MortageAmortization").length>0 &&
+                    $scope.Application.get("PaymentSchedule").length>0) {
 
                     if($scope.Application.get("MortagePurpose") == 'Purchase' ||
                         $scope.Application.get("MortagePurpose") == 'Pre-Approval') {

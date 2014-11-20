@@ -48,6 +48,7 @@ define(['app'], function (app) {
             rebates[id+" Year Term"].rate = rate;
         };
 
+
         var mortage = {
             "amount" : null,
             "rebate" : 0,
@@ -967,6 +968,14 @@ define(['app'], function (app) {
             },
             set: function(aValue) {
                 this.set("Personal1Month2yMortgagePayment", aValue);
+            }
+        });
+        Object.defineProperty(_Application.prototype, "PaymentSchedule", {
+            get: function() {
+                return this.get("PaymentSchedule");
+            },
+            set: function(aValue) {
+                this.set("PaymentSchedule", aValue);
             }
         });
 
