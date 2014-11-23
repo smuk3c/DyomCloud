@@ -8243,21 +8243,33 @@ h1.morgage-sum {
   margin-right: 10px;
   font-weight: 800; }
 
-.nav-scrolled {
-  border-bottom: #2880b9 1px solid; }
-  .nav-scrolled .logo-black {
+.nav-scrolled,
+.appl-nav {
+  border-bottom: #d2d2d2 1px solid; }
+  .nav-scrolled .logo-black,
+  .appl-nav .logo-black {
     display: inline-block; }
-  .nav-scrolled .logo-white {
+  .nav-scrolled .logo-white,
+  .appl-nav .logo-white {
     display: none; }
   .nav-scrolled ul.nav-links a,
   .nav-scrolled ul.nav-links a:visited,
   .nav-scrolled ul.nav-links a:hover,
-  .nav-scrolled ul.nav-links a:active {
+  .nav-scrolled ul.nav-links a:active,
+  .appl-nav ul.nav-links a,
+  .appl-nav ul.nav-links a:visited,
+  .appl-nav ul.nav-links a:hover,
+  .appl-nav ul.nav-links a:active {
     color: #000; }
 
+.appl-nav ul.nav-links li.active,
 .nav-scrolled ul.nav-links li.active {
   border-bottom: #2880b9 1px solid; }
 
+.appl-nav ul.nav-links li.active a,
+.appl-nav ul.nav-links li.active a:visited,
+.appl-nav ul.nav-links li.active a:hover,
+.appl-nav ul.nav-links li.active a:active,
 .nav-scrolled ul.nav-links li.active a,
 .nav-scrolled ul.nav-links li.active a:visited,
 .nav-scrolled ul.nav-links li.active a:hover,
@@ -8265,7 +8277,8 @@ h1.morgage-sum {
   color: #2880b9; }
 
 @media screen and (min-width: 992px) {
-  .nav-scrolled {
+  .nav-scrolled,
+  .appl-nav {
     background: #fff;
     -webkit-transition: all ease-out 0.7s;
     -o-transition: all ease-out 0.7s;
