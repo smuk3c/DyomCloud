@@ -3,7 +3,7 @@ define(['jquery', 'app', 'parse', 'bootstrap'], function ($, app, Parse) {
 // === CONTROLLERS OBJECT
 var controllers = {};
 
-    controllers.MainCtrl = ['$rootScope', '$scope', '$location', 'Mortage',  function($rootScope, $scope, $location, Mortage){
+    controllers.MainCtrl = ['$rootScope', '$scope', '$window', '$location', 'Mortage',  function($rootScope, $scope, $window, $location, Mortage){
 
         // Nav
         $scope.nav = false;
@@ -46,6 +46,26 @@ var controllers = {};
         $scope.isSavedR = function(){
             return $rootScope.isSave === true;
         }
+
+        $scope.isHow = false;
+        $scope.isActiveHow = function(){
+            return $scope.isHow === true;
+        };
+        $scope.setHow = function(){
+            $scope.isHow =  !$scope.isHow;
+        }
+
+        angular.element($window).bind("scroll", function() {
+            if($scope.isActiveHow()){
+
+                if($('body').scrollTop() > $('.partner-howItworks').height()+50) {
+                    $scope.isHow = false;
+                    $scope.$apply();
+                }
+
+            }
+        });
+
     }];
 
     controllers.LandingCtrl = ['$window', '$scope', '$timeout', '$filter', 'Mortage',  function($window, $scope, $timeout, $filter, Mortage){

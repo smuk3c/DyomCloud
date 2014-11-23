@@ -1,0 +1,116 @@
+.partner-header {
+  width: 100%;
+  height: 550px;
+  background: url("../img/partnerBackdroung.jpg") no-repeat center center fixed;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  position: relative;
+  line-height: 550px;
+
+  span.content {
+    display: inline-block;
+    vertical-align: middle;
+    text-align: center;
+    line-height: 1.5;
+    width: 100%;
+  }
+
+}
+
+.active-how {
+  padding-top: 250px !Important;
+  @include transition(all .3s ease-in-out .6s);
+}
+
+.partner-howItworks {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  right: 0px;
+  z-index: 1050;
+  -ms-transform: translate(0px, -200%); /* IE 9 */
+  -webkit-transform: translate(0px,-200%); /* Chrome, Safari, Opera */
+  transform: translate(0px,-200%);
+  @include transition(all .5s ease-in-out);
+}
+
+.active-how .partner-howItworks {
+  background: #2c3e50;
+  color: #fff;
+  padding: 20px 0px;
+  text-align: center;
+  -ms-transform: translate(0px, 0%); /* IE 9 */
+  -webkit-transform: translate(0px,0%); /* Chrome, Safari, Opera */
+  transform: translate(0px,0%);
+
+  a.close {
+    position: absolute;
+    top: 10px; right: 10px;
+    color: #61788e;
+    font-size: 20px;
+  }
+
+  h1 {
+    margin: 20px 0px;
+  }
+
+  h3 {
+    font-size: 24px;
+  }
+
+  p {
+    font-size: 12px;
+  }
+}
+
+.btn-transparent {
+  display: inline-block;
+  background: rgba(41, 128, 185, 0.6);
+  padding: 10px 20px;
+  cursor: pointer;
+  margin: 30px auto;
+  border: none;
+  font-weight: 400;
+  @include transition(background .5s ease-in-out);
+  color: #fff;
+
+  &:hover {
+    background: rgba(41, 128, 185, 1);
+  }
+}
+
+.blue-back-light {
+  background: #2980b9;
+  padding: 20px 0px;
+}
+
+.btn-blue {
+  background: #2c3e50;
+  color: #fff;
+}
+
+.partner-box {
+  position: relative;
+  display:block;
+  margin: 10px auto;
+  width: 100%;
+  max-width: 360px;
+  overflow: hidden;
+
+  .content {
+    position: absolute;
+    width: 80%;
+    top: 20%;
+    left: 50%;
+    margin-left: -40%;
+    color:#fff;
+
+    strong {
+      display: block;
+      margin-bottom: 20px;
+      font-size: 20px;
+    }
+  }
+}

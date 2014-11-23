@@ -1,16 +1,92 @@
 .top-navigation {
   width: 100%;
   display: block;
-  border-bottom: 1px solid #d2d2d2;
-  background: #fff;
+  background: transparent;
   z-index: 1035;
   -webkit-transition: all ease-out 0.7s;
   -o-transition: all ease-out 0.7s;
   transition: all ease-out 0.7s;
 
+
+  .logo-black {
+    display: none;
+  }
+
+  .user-img{
+    height: 25px;
+    width:  25px;
+    margin:0px;
+    margin-right: 10px;
+  }
+
+  .u-drop {
+    text-transform: capitalize !important;
+    position: relative;
+
+    .drop-menu {
+      @media screen and (min-width: 751px) {
+
+      display: block;
+      background: $blue;
+      position: absolute;
+      width: 150px;
+      top: 60px;
+      right: 0px;
+      -webkit-border-radius: 5px;
+      -moz-border-radius: 5px;
+      border-radius: 5px;
+      margin: 0px;
+      padding: 0px;
+
+      &:before {
+        content: '';
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 10px 10px 10px;
+        border-color: transparent transparent #287fb9 transparent;
+        position: absolute;
+        top: -10px;
+        right: 10px;
+      }
+
+      li {
+        display: block;
+        float: none;
+        width: 100%;
+        margin: 0px;
+        padding: 0px;
+
+        &:hover {
+          background: lighten($blue, 10%);
+        }
+
+        a,
+        a:hover{
+          text-align: center;
+          display: block;
+          width: 300;
+          width: 100%;
+          color: #fff !Important;
+        }
+      }
+    }
+    }
+
+  }
+
+
   @media screen and (max-width: $screen-sm-max) {
     .container {
       width: 100% !Important;
+    }
+
+    .logo-black {
+      display: inline-block !Important;
+    }
+
+    .logo-white {
+      display: none !Important;
     }
   }
 
@@ -21,7 +97,8 @@
     position: fixed;
     top: 0;
     left: 0;
-    right: 0; } }
+    right: 0; }
+}
 
 .top-navigation img {
   margin: 10px 0px; }
@@ -49,7 +126,7 @@
 .top-navigation ul.nav-links a:visited,
 .top-navigation ul.nav-links a:hover,
 .top-navigation ul.nav-links a:active {
-  color: #363636;
+  color: #fff;
   font-weight: 400;
   display: block;
   padding: 10px 5px;
@@ -57,10 +134,15 @@
   -webkit-transition: all ease-out 0.5s;
   -o-transition: all ease-out 0.5s;
   font-size: 14px;
-  transition: all ease-out 0.5s; }
+  transition: all ease-out 0.5s;
+
+  @media screen and (max-width: $screen-sm-max) {
+    color: #000;
+  }
+}
 
 .top-navigation ul.nav-links a:hover {
-  color: #2880b9; }
+  font-weight: 600; }
 
 .top-navigation ul.nav-links li.active a,
 .top-navigation ul.nav-links li.active a:visited,
@@ -106,6 +188,23 @@
   margin-right: 10px;
   font-weight: 800; }
 
+.nav-scrolled {
+  border-bottom: #2880b9 1px solid;
+  .logo-black {
+    display: inline-block;
+  }
+  .logo-white {
+    display: none;
+  }
+
+  ul.nav-links a,
+  ul.nav-links a:visited,
+  ul.nav-links a:hover,
+  ul.nav-links a:active {
+    color:#000;
+  }
+}
+
 .nav-scrolled ul.nav-links li.active {
   border-bottom: #2880b9 1px solid; }
 .nav-scrolled ul.nav-links li.active a,
@@ -113,6 +212,7 @@
 .nav-scrolled ul.nav-links li.active a:hover,
 .nav-scrolled ul.nav-links li.active a:active {
   color: #2880b9; }
+
 @media screen and (min-width: 992px) {
   .nav-scrolled {
     background: #fff;

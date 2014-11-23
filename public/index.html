@@ -39,7 +39,7 @@
     <![endif]-->
 
 </head>
-<body ng-class="{'darkBody':isThis('/apply-now')}">
+<body ng-class="{'darkBody':isThis('/apply-now'), 'active-how' : isActiveHow()}">
     <div id="fb-root"></div>
     <div ng-nav class="hidden-print"></div>
     <div ng-view></div>

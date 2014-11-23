@@ -59,7 +59,7 @@
                              <span class="arrow pull-right"><i class="fa fa-chevron-down"></i></span>
                          </button>
                          <div class="placehold"
-                              ng-show="togleDrop"
+                              ng-show="togleDrop2"
                               ng-click="togleDrop2=!togleDrop2"></div>
                          <div class="meni-arrow"
                               ng-show="togleDrop2"></div>
@@ -85,7 +85,7 @@
                      {{getMortage('rebate') | noFractionCurrency}}
                      <small>Your Rebate</small>
                  </h1>
-                 <button class="btn btn-special mar-xs-top"
+                 <button class="btn btn-success btn-lg mar-xs-top"
                          ng-click="next('apply-now')"><span class="pull-left margin-top-small">Continue</span> <i class="fa fa-angle-right fa-2x pull-right"></i> </button>
              </div>
          </div>
@@ -111,7 +111,7 @@
     <div class="container">
         <div class="row">
             <div class="col-xs-12 text-center-sm text-center-xs special-margin">
-                <h2 class="aleoFont">Why Do your Own Mortgage?</h2>
+                <h2 class="aleoFont whiteText text-center">Why Do your Own Mortgage?</h2>
             </div>
         </div>
         <div class="row">
@@ -119,22 +119,24 @@
                 <div class="min-height-100">
                     <img src="resources/img/clock.png" />
                 </div>
-                <h3>Your Mortgage on Your Time</h3>
-                <p class="text-muted">Submit a full mortgage application from the comfort of your own home. Save your application and finish off whenever you are ready.</p>
+                <h3 class="aleoFont whiteTex">Your Mortgage on Your Time</h3>
+                <p class="whiteTex">Submit a full mortgage application from the comfort
+                    of your own home. Save your application and finish off whenever you are ready.</p>
             </div>
             <div class="col-md-3 col-md-offset-1  text-center-xs">
                 <div class="min-height-100">
                     <img src="resources/img/credit-card.png" />
                 </div>
-                <h3>Cash Back on Closing</h3>
-                <p class="text-muted">Get a rebate on your mortgage on the closing date to help cover closing costs, no strings attached.</p>
+                <h3 class="aleoFont whiteTex">Cash Back on Closing</h3>
+                <p class="whiteTex">Get a rebate on your mortgage on the closing date to help cover closing costs, no strings attached.</p>
             </div>
             <div class="col-md-3 col-md-offset-1  text-center-xs">
                 <div class="min-height-100">
                     <img src="resources/img/lock.png" />
                 </div>
-                <h3>Simple and Secure</h3>
-                <p class="text-muted">Step-by-step instructions on everything you need to finish your mortgage application. Hosted on super secure servers with 128-bit encyption.</p>
+                <h3 class="aleoFont whiteTex">Simple and Secure</h3>
+                <p class="whiteTex">Step-by-step instructions
+                    on everything you need to finish your mortgage application. Hosted on super secure servers with 128-bit encyption.</p>
             </div>
         </div>
     </div>
@@ -143,13 +145,13 @@
 <div class="blue-back clearfix">
     <div class="container">
         <div class="row">
-            <div class="col-md-4 col-md-offset-2 text-center-sm text-center-xs">
-                <h2>Start Your Mortgage Today</h2>
+            <div class="col-md-5 col-md-offset-2 text-center-sm text-center-xs text-right">
+                <h2 class="aleoFont">Start Your Mortgage Today</h2>
             </div>
-            <div class="col-md-2 col-md-offset-1 text-center-sm text-center-xs">
-                <button class="btn btn-custom btn-danger micro-margin"
+            <div class="col-md-2 text-center-sm text-center-xs">
+                <button class="btn btn-custom btn-success micro-margin btn-lg"
                         scroll-animate="blink"
-                        ng-click="next('apply-now')">try it now</button>
+                        ng-click="next('apply-now')">apply now <i class="fa fa-arrow-circle-right"></i> </button>
             </div>
         </div>
     </div>

@@ -17,6 +17,15 @@ define(['app','parse','services/services'], function (app, Parse) {
 
         $rootScope.sessionUser = User.current();
 
+        $rootScope.getUsername = function(){
+            if($rootScope.sessionUser != null){
+               var u = $rootScope.sessionUser.get("username").split("@");
+               return u[0];
+            }
+            else
+                return null;
+        }
+
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
 
            if (next.authenticate && $rootScope.sessionUser==null || (next.authenticate && $rootScope.sessionUser!=null && !$rootScope.sessionUser.has("isAdmin") && !$rootScope.sessionUser.get("isAdmin")) )
