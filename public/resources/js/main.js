@@ -1,50 +1,69 @@
-var mainUrl = "//dyom.parseapp.com/";
+'use strict';
+
 require.config({
     urlArgs: "vol=" +  (new Date()).getTime(),
     paths: {
-        jquery: mainUrl+'resources/lib/js/jquery/jquery.min',
+        jquery: 'libs/jquery/jquery.min',
         jqueryui: '//ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js',
-        jqueryVisible: mainUrl+'resources/lib/js/jquery/jquery.visible.min',
-        bootstrap: mainUrl+'resources/lib/js/bootstrap/bootstrap.min',
+        jqueryVisible: 'libs/jquery/jquery.visible.min',
+        bootstrap: 'libs/bootstrap/bootstrap.min',
         facebook: 'https://connect.facebook.net/en_US/sdk',
         twitter: 'https://platform.twitter.com/widgets',
-        angular: mainUrl+'resources/lib/js/angularjs/angular.min',
-        angularRoute: mainUrl+'resources/lib/js/angularjs/angular-route.min',
-        angularResource: mainUrl+'resources/lib/js/angularjs/angular-resource.min',
-        angularAnimate: mainUrl+'resources/lib/js/angularjs/angular-animate.min',
-        angularSanitate: mainUrl+'resources/lib/js/angularjs/angular-sanitize.min',
-        angularTouch: mainUrl+'resources/lib/js/angularjs/angular-touch.min',
-        datePicker: mainUrl+'resources/lib/js/bootstrap/bootstrap-datepicker',
-        parse: mainUrl+'resources/lib/js/parse-1.2.19.min',
-        slick: mainUrl+'resources/lib/js/slick.min'
+        angular: 'libs/angularjs/angular.min',
+        angularRoute: 'libs/angularjs/angular-route.min',
+        angularResource: 'libs/angularjs/angular-resource.min',
+        angularAnimate: 'libs/angularjs/angular-animate.min',
+        angularSanitate: 'libs/angularjs/angular-sanitize.min',
+        angularTouch: 'libs/angularjs/angular-touch.min',
+        datePicker: 'libs/bootstrap/bootstrap-datepicker',
+        parse: 'libs/parse.min',
+        slick: 'libs/slick.min'
     },
     baseUrl: 'resources/js/',
     shim: {
         'jquery': { exports: 'jQuery' },
-        'jqueryui': { exports: 'jQuery' },
-        'jqueryVisible': { exports: 'visible' , deps: ['jquery']},
-        'bootstrap': { exports: 'bootstrap', deps: ['jquery'] },
+        'jqueryui': ['jquery'],
+        'jqueryVisible': ['jquery'],
+        'bootstrap': ['jquery'],
         'facebook' : { exports: 'FB'},
         'twitter' : { exports: 'twttr'},
         'angular': { exports: 'angular' },
-        'angularRoute': { exports: 'ngRoute',  deps: ['angular'] },
-        'angularResource': {exports: 'ngResource', deps: ['angular'] },
-        'angularAnimate': {exports: 'ngAnimate', deps: ['angular'] },
-        'angularSanitate': {exports: 'ngSanitize',  deps: ['angular'] },
-        'angularTouch': {exports: 'ngTouch',  deps: ['angular'] },
-        'datePicker': {deps: ['angular', 'bootstrap'] },
+        'angularRoute': ['angular'],
+        'angularResource': ['angular'],
+        'angularAnimate': ['angular'],
+        'angularSanitate': ['angular'],
+        'angularTouch': ['angular'],
+        'datePicker': ['angular', 'bootstrap'],
         'parse': { exports: 'Parse' },
-        'slick': {exports: 'slick'}
+        'slick': { exports: 'slick' }
     },
     priority: [
         'jquery',
         'angular',
-        'parse'
+        'parse',
+        'twitter',
+        "facebook"
     ]
 });
 
-require(['jquery', 'angular', 'fb', 'pars', 'twitter', 'routes', 'conf', 'controllers/controllers', 'services/services', 'directives/directives', 'filters/filters'], function ($, angular, FB, Parse, twttr) {
+require([
+    'jquery',
+    'angular',
+    'fb',
+    'pars',
+    'twitter',
+    'app',
+    'conf',
+//    'constants',
+    'routes',
+    'controllers/controllers',
+    'services/services',
+    'directives/directives',
+    'filters/filters'
+], function ($, angular, FB, Parse, twttr) {
+
     $(function () {
         angular.bootstrap(document, ['app']);
     });
+
 });

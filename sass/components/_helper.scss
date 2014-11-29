@@ -75,9 +75,6 @@
   }
 }
 
-$barColor: $blue;
-$overlayColor: #f5f5f5;
-$backColor: #2f3439;
 
 .progress-radial {
   margin: 10px auto;
@@ -121,11 +118,6 @@ $backColor: #2f3439;
   margin-top:30px !important;
 }
 
-$step: 1;
-
-$loops: round(100 / $step);
-$increment: 360 / $loops;
-$half: round($loops / 2);
 @for $i from 0 through $loops {
 
   .progress-#{$i*$step} {
@@ -151,4 +143,112 @@ $half: round($loops / 2);
 
 .whiteText {
   color: #fff !Important;
+}
+
+.no-padding {
+  padding: 0px !Important;
+}
+
+.modal-padding {
+  padding: 10px 15px;
+}
+
+.small-margin-top-bottom {
+  margin-top: 50px;
+  margin-bottom: 15px;
+}
+
+.padding-left {
+  padding-left: 10px;
+}
+
+.bigF{
+  font-size: 48px;
+}
+
+.padd {
+  margin-top: 100px;
+  padding: 100px 0px;
+}
+
+[ng\:cloak], [ng-cloak], [data-ng-cloak], [x-ng-cloak], .ng-cloak, .x-ng-cloak {
+  display: none !important;
+}
+
+
+.gray-back {
+  background: #f4f5f6;
+  padding: 60px 0px; }
+
+.aleoFont {
+  font-family: aleo;
+}
+
+.special-margin {
+  margin: 35px auto; }
+
+.min-height-100 {
+  min-height: 170px; }
+
+.special-margin-container {
+  margin: 50px auto; }
+
+.blue-back {
+  background: #2880b9;
+  color: #fff;
+  padding: 20px 0px; }
+
+.micro-margin {
+  margin: 10px 0px; }
+
+.margin-top-small {
+  margin-top: 5px; }
+
+@media screen and (min-width: 992px) {
+  .padding-top {
+    padding-top: 90px; } }
+
+
+.light-blue-backa {
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+  background: #92c6e8;
+  padding-top: 15px; }
+
+.margin-bottom-small {
+  margin-bottom: 15px; }
+
+
+.gray-back-b {
+  background: #2c3e50;
+  padding-bottom: 50px;
+  color: #fff;
+}
+
+.green {
+  color: #51bf87;
+}
+
+
+.inner-padding {
+  padding-top:74px;
+  padding-bottom:74px;
+}
+
+.min-height-400 {
+  min-height: 400px;
+}
+
+
+label {
+  font-size: 12px;
+}
+
+.small-padding {
+  padding-right: 0px;
+}
+
+.mart {
+  margin-top:8px;
 }

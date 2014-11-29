@@ -1,5 +1,5 @@
 <nav class="top-navigation"
-     ng-class="{'appl-nav': isThis('/apply-now')}"
+     ng-class="{'appl-nav': !isThis('/') && !isThis('/become-partner')}"
      nav-check>
     <div class="container">
         <div class="row">
@@ -23,34 +23,35 @@
                             How it Works
                         </a>
                     </li>
-                    <li  ng-class="{'active':isThis('/about')}"
-                         ng-if="sessionUser == null && !isThis('/become-partner')">
-                        <a href="#/about"
-                           ng-click="togleNav()">
-                            About us
-                        </a>
-                    </li>
+                    <!--<li  ng-class="{'active':isThis('/about')}"-->
+                         <!--ng-if="sessionUser == null && !isThis('/become-partner')">-->
+                        <!--<a href="#/about"-->
+                           <!--ng-click="togleNav()">-->
+                            <!--About us-->
+                        <!--</a>-->
+                    <!--</li>-->
                     <li ng-if="sessionUser != null && !isThis('/become-partner')"
                         class="u-drop">
                         <a href="#/user"
                            prevent-def
                            ng-click="togleDrop3 = !togleDrop3">
                             <img src="resources/img/user-placeholder.png" class="user-img">
-                            {{getUsername()}}
-                            <i class="fa fa-angle-down"></i>
+                            {{ sessionUser!=null && sessionUser.has("firstName") && sessionUser.get("firstName").length > 0 ? sessionUser.get("firstName") : "User"  }}
+                             <i class="fa fa-angle-down"></i>
                         </a>
-                        <ul class="drop-menu"
+                        <ul class="drop-menu text-left"
                             ng-show="togleDrop3">
-                            <li><a href="#"  ng-click="togleDrop3 = !togleDrop3">Settings</a></li>
-                            <li><a href="#"  ng-click="togleDrop3 = !togleDrop3">Settings</a></li>
-                            <li><a href="#"  ng-click="togleDrop3 = !togleDrop3">Settings</a></li>
+                            <li ng-show="isRole('Administrator')" ><a href="#/admin"><i class="fa fa-dashboard"></i> Admin</a></li>
+                            <li><a href="#" ><i class="fa fa-pencil"></i> Edit personal info</a></li>
+                            <li><a href="#" ><i class="fa fa-database"></i> Dashboard</a></li>
+                            <li><a href="#" prevent-def ng-click="togleDrop3 = !togleDrop3; userHandler.logMeOut()"><i class="fa fa-sign-out"></i> Logout</a></li>
                         </ul>
                     </li>
                     <li ng-show="!isThis('/apply-now') && !isThis('/become-partner')"
                         class="special-btn-nav">
                         <a href="#/apply-now"
                            ng-click="togleNav()">
-                            <span ng-show="sessionUser == null">Start</span>
+                            <span ng-show="sessionUser == null">Get started</span>
                             <span ng-show="sessionUser != null">Continue</span>
                         </a>
                     </li>
@@ -70,6 +71,13 @@
                            ng-disabled="isAppSavingR()">
                             <span ng-show="!isAppSavingR()"><span ng-show="!isSaved()">Save my Application</span> <span ng-show="isSavedR()"><i class="fa fa-check-circle"></i></span></span>
                             <span ng-show="isAppSavingR()">Saving <i class="fa fa-spin fa-spinner"></i></span>
+                        </a>
+                    </li>
+                    <li  ng-if="sessionUser == null">
+                        <a href="#/about"
+                           data-toggle="modal" data-target="#login"
+                           ng-click="togleNav()">
+                           <i class="fa fa-sign-in"></i>
                         </a>
                     </li>
                 </ul>

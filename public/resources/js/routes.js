@@ -12,31 +12,28 @@ define(['app', 'controllers/controllers', 'services/services'], function (app) {
                     controller: 'ApplicationCtrl',
                     authenticate: false
                 }).
-                when('/login', {
-                    templateUrl: 'resources/views/login.html',
-                    controller: 'LoginCtrl',
-                    authenticate: false
-                }).
                 when('/admin', {
                     templateUrl: 'resources/views/admin.html',
                     controller: 'AdminCtrl',
-                    authenticate: true
+                    authenticate: true,
+                    role: "Administrator"
+                }).
+                when('/admin/:id', {
+                    templateUrl: 'resources/views/admin.html',
+                    controller: 'AdminCtrl',
+                    authenticate: true,
+                    role: "Administrator"
                 }).
                 when('/how-it-works', {
                     templateUrl: 'resources/views/works.html',
                     controller: 'StaticCtrl',
                     authenticate: false
                 }).
-                when('/about', {
-                    templateUrl: 'resources/views/contact.html',
-                    controller: 'StaticCtrl',
-                    authenticate: false
-                }).
-                when('/application/:id', {
-                    templateUrl: 'resources/views/applicationPrint.html',
-                    controller: 'AdminAppCtrl',
-                    authenticate: false
-                }).
+//                when('/about', {
+//                    templateUrl: 'resources/views/contact.html',
+//                    controller: 'StaticCtrl',
+//                    authenticate: false
+//                }).
                 when('/privacy', {
                     templateUrl: 'resources/views/privacy.html',
                     controller: 'StaticCtrl',

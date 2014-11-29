@@ -74,25 +74,10 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
 
     directives.ngMls = ['$filter', function($filter){
         return function(scope, element, attrs) {
-
             element.bind("keypress", function(e) {
-
-//                if($(element).val().length>0 && $(element).val().length<6){
-//                    if (e.which != 8 && e.which != 36 && e.which != 46 && e.which != 44 && e.which != 0 && (e.which < 48 || e.which > 57))
-//                        return false;
-//                }
-//
-//                if($(element).val().length==0){
-//                    if(e.which < 97 /* a */ || e.which > 122 /* z */)
-//                        return false;
-//                }
-
-                if($(element).val().length>7){
+                if($(element).val().length>7)
                         return false;
-                }
-
             });
-
         };
     }];
 
@@ -145,6 +130,7 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
         };
     }];
 
+
     directives.scrollAnimate = [function(){
         return function(scope, element, attrs) {
             $(window).scroll(function() {
@@ -183,6 +169,14 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
             replace: true,
             restrict: 'A',
             templateUrl: 'resources/views/nav.html'
+        }
+    }];
+
+    directives.ngModalst = [function() {
+        return {
+            replace: true,
+            restrict: 'A',
+            templateUrl: 'resources/views/modals.html'
         }
     }];
 
@@ -235,7 +229,7 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
     directives.ngLike = ['$timeout', function($timeout){
         return function($scope, element, attr){
             var start = function(){
-                var html = '<div class="fb-like" data-href="https://facebook.com/doyourownmortgage" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>';
+                var html = '<div class="fb-like" data-href="https://www.facebook.com/doyourownmortgageca" data-layout="button_count" data-action="like" data-show-faces="true" data-share="true"></div>';
                 $(element).html(html)
                 FB.XFBML.parse(element.parent()[0]);
             };
@@ -260,6 +254,31 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
                 $timeout(start,1000);
             }
         }
+    }];
+
+    directives.passwordMatch = [function () {
+        return {
+            restrict: 'A',
+            scope:true,
+            require: 'ngModel',
+            link: function (scope, elem , attrs,control) {
+                var checker = function () {
+
+                    //get the value of the first password
+                    var e1 = scope.$eval(attrs.ngModel);
+
+                    //get the value of the other password
+                    var e2 = scope.$eval(attrs.passwordMatch);
+                    return e1 == e2;
+                };
+                scope.$watch(checker, function (n) {
+
+                    //set the form control to valid if both
+                    //passwords are the same, else invalid
+                    control.$setValidity("unique", n);
+                });
+            }
+        };
     }];
 
 

@@ -1,4 +1,4 @@
-define(['app'], function (app) {
+define(['jquery', 'app', 'parse', 'bootstrap'], function ($, app, Parse) {
 
 // === SERVICES OBJECT
     var factories = {};
@@ -109,20 +109,109 @@ define(['app'], function (app) {
     }];
 
 
-    factories.User = [function(){
+    factories.User = ['$rootScope', '$q', function($rootScope, $q){
         var User = Parse.User.extend(
             {},
             {
-                isAdmin: function(){
+                checkAccess: function(roleName){
+                    var defer = $q.defer();
+
                     if(this.current()){
-                        console.log(this);
-                        if(this.has("isAdmin") && this.get("isAdmin"))
-                            return true;
-                        else
-                            return false;
-                        }
+
+                        var queryRole = new Parse.Query(Parse.Role);
+                        queryRole.equalTo('name', roleName);
+                        queryRole.first({
+                            success: function(result) {
+
+                                var role = result;
+                                var adminRelation = new Parse.Relation(role, 'users');
+                                var queryAdmins = adminRelation.query();
+
+                                queryAdmins.equalTo('objectId', Parse.User.current().id);
+                                queryAdmins.first({
+                                    success: function(result) {
+                                        var rsp = result ? true : false;
+                                        defer.resolve(rsp);
+                                    }
+                                });
+
+                            },
+                            error: function(error) {
+                                defer.resolve(false);
+                            }
+                        });
+
+                    }
                     else
-                        return false;
+                        defer.resolve(false);
+
+                    return defer.promise;
+                },
+                logMeOut: function(){
+                      Parse.User.logOut();
+                      $rootScope.sessionUser =  this.current();
+                },
+                forgotPass: function(data){
+
+                    Parse.User.requestPasswordReset(data.email.$viewValue, {
+                        success: function() {
+                            $rootScope.resetSuccess = true;
+                            $rootScope.resetError = false;
+                            $rootScope.$apply();
+                        },
+                        error: function(error) {
+                            $rootScope.resetSuccess = false;
+                            $rootScope.resetError = true;
+                            $rootScope.$apply();
+                        }
+                    });
+
+                },
+                login: function(data){
+
+                    Parse.User.logIn(data.email.$viewValue, data.password.$viewValue, {
+                        success: function(user) {
+                            $rootScope.sessionUser = user;
+                            $rootScope.$apply();
+                            $("#login").modal("hide");
+                        },
+                        error: function(user, error) {
+                            $rootScope.loginError = error.message;
+                            $rootScope.$apply();
+
+                            if (!$("#login .modal-dialog").hasClass("shake")) {
+                                $("#login .modal-dialog").addClass("shake");
+                            } else {
+                                $("#login .modal-dialog").removeClass("shake");
+                                setTimeout(function() {
+                                    $("#login .modal-dialog").addClass("shake");
+                                }, 100);
+                            }
+
+                        }
+                    });
+
+                },
+                register: function(data){
+
+                    var user = new User();
+                    user.set("username", data.email.$viewValue);
+                    user.set("email", data.email.$viewValue);
+                    user.set("firstName", data.ufname.$viewValue);
+                    user.set("lastName", data.ulname.$viewValue);
+                    user.set("password", data.password.$viewValue);
+                    user.set("newsletter", data.news.$viewValue);
+
+                    user.signUp(null, {
+                        success: function(user) {
+                            $rootScope.sessionUser = user;
+                            $rootScope.$apply();
+                            $("#register").modal("hide");
+                        },
+                        error: function(user, error) {
+//                            alert("Error: " + error.code + " " + error.message);
+                        }
+                    });
                 }
             }
         );

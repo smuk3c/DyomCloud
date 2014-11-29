@@ -2,7 +2,8 @@
   padding: 16px 30px;
   text-transform: uppercase;
   border: none !important;
-  outline: none !important; }
+  outline: none !important;
+}
 
 .btn-drop {
   display: block;
@@ -29,9 +30,11 @@
 .blue-box,
 .btn-drop button .selected {
   padding: 13px 30px; }
+
 .btn-drop button .arrow {
   padding: 13px 20px;
   font-size: 15px; }
+
 .btn-drop .placehold {
   position: fixed;
   top: 0;
@@ -178,4 +181,32 @@
   font-size: 11px;
   line-height: 1.5;
   border-radius: 3px;
+}
+
+.btn-modal{
+  -webkit-border-radius: 0px;
+  -moz-border-radius: 0px;
+  border-radius: 0px;
+  padding: 20px;
+  margin: 0px !important;
+}
+
+.btn-facebook{
+  background: #3b5998;
+  color: #fff;
+
+  &:hover {
+    background: darken(#3b5998, 10%);
+    color: #fff;
+  }
+}
+
+.btn-google {
+  background: #d95232;
+  color: #fff;
+
+  &:hover {
+    background: darken(#d95232, 10%);
+    color: #fff;
+  }
 }

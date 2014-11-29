@@ -3,72 +3,7 @@ define(['jquery', 'app', 'parse', 'bootstrap'], function ($, app, Parse) {
 // === CONTROLLERS OBJECT
 var controllers = {};
 
-    controllers.MainCtrl = ['$rootScope', '$scope', '$window', '$location', 'Mortage',  function($rootScope, $scope, $window, $location, Mortage){
-
-        // Nav
-        $scope.nav = false;
-        $scope.togleNav = function(){
-            $scope.nav = !$scope.nav;
-        };
-        $scope.isNavActive = function(){
-            return $scope.nav === true;
-        };
-
-        $scope.isThis = function(id){
-            return $location.path() == id;
-        };
-
-        $scope.next = function(val){
-            $location.path("/"+val);
-        };
-
-        $scope.setMortage = function(attribute, value) {
-            return Mortage.set(attribute, value);
-        };
-        $scope.getMortage = function(attribute) {
-            return Mortage.get(attribute);
-        };
-        $scope.getRate = function(){
-            return Mortage.getRate();
-        };
-
-        $rootScope.pushSave = false;
-        $scope.saveAppR = function(){
-            $rootScope.pushSave = true;
-        };
-
-        $rootScope.autoSaving = false;
-        $scope.isAppSavingR = function(){
-            return $rootScope.autoSaving == true;
-        };
-
-        $rootScope.isSave = false;
-        $scope.isSavedR = function(){
-            return $rootScope.isSave === true;
-        }
-
-        $scope.isHow = false;
-        $scope.isActiveHow = function(){
-            return $scope.isHow === true;
-        };
-        $scope.setHow = function(){
-            $scope.isHow =  !$scope.isHow;
-        }
-
-        angular.element($window).bind("scroll", function() {
-            if($scope.isActiveHow()){
-
-                if($('body').scrollTop() > $('.partner-howItworks').height()+50) {
-                    $scope.isHow = false;
-                    $scope.$apply();
-                }
-
-            }
-        });
-
-    }];
-
-    controllers.LandingCtrl = ['$window', '$scope', '$timeout', '$filter', 'Mortage',  function($window, $scope, $timeout, $filter, Mortage){
+    controllers.LandingCtrl = ['$rootScope', '$window', '$scope', '$timeout', '$filter', 'Mortage',  function($rootScope, $window, $scope, $timeout, $filter, Mortage){
 
         $scope.finished = false;
         $scope.isFinished = function(){
@@ -91,7 +26,7 @@ var controllers = {};
 
     }];
 
-    controllers.AdminCtrl = ['$rootScope', '$scope', 'Application',  function($rootScope, $scope, Application){
+    controllers.AdminCtrl = ['$rootScope', '$scope', '$routeParams', 'Application',  function($rootScope, $scope, $routeParams, Application){
 
         $scope.offset = 0;
         $scope.limit = 5;
@@ -167,64 +102,39 @@ var controllers = {};
         $scope.offset = i;
         };
 
+        $scope.application = {};
+        $scope.assets = {};
+        $scope.liabilities = {};
 
+        $scope.isAppSel = false;
 
         init();
         function init(){
             $scope.counting();
             $scope.getList();
-        }
 
-    }];
-
-    controllers.AdminAppCtrl = ['$rootScope', '$routeParams', '$scope', 'Application',  function($rootScope, $routeParams, $scope, Application){
-
-        $scope.application = {};
-        $scope.assets = {};
-        $scope.liabilities = {};
-
-        init();
-        function init(){
-            Application.findById($routeParams.id).then(function(aApplications) {
-                $scope.application = aApplications;
-                $scope.assets = JSON.parse(aApplications.get('Assets'));
-                $scope.liabilities = JSON.parse(aApplications.get('Liabilities'));
-            });
-        }
-
-    }];
-
-    controllers.LoginCtrl = ['$rootScope', '$scope', '$location', 'User',  function($rootScope,$scope, $location, User){
-
-        $scope.adminLogin = function(){
-
-            Parse.User.logIn($scope.loginForm.username.$viewValue, $scope.loginForm.password.$viewValue, {
-                success: function(user) {
-
-                    if(user.has("isAdmin") && user.get("isAdmin")) {
-                        $rootScope.sessionUser = user;
-                        $location.path("/admin");
-                        $rootScope.$apply();
-                    }
-
-
-                },
-                error: function(user, error) {
-
-                }
-            });
-
-        };
-
-        init();
-        function init(){
-            if($rootScope.sessionUser!=null && $rootScope.sessionUser.has("isAdmin") && $rootScope.sessionUser.get("isAdmin"))
-                $location.path("/admin");
+            if(typeof $routeParams.id != "undefined" && $routeParams.id!="") {
+                Application.findById($routeParams.id).then(function(aApplications) {
+                    $scope.application = aApplications;
+                    $scope.assets = JSON.parse(aApplications.get('Assets'));
+                    $scope.liabilities = JSON.parse(aApplications.get('Liabilities'));
+                    $scope.isAppSel = true;
+                });
+            }
+            else
+                $scope.isAppSel = false;
         }
 
     }];
 
     controllers.ApplicationCtrl = ['$rootScope', '$scope', '$timeout', '$filter', 'Application', 'Mortage', 'User',  function($rootScope, $scope, $timeout, $filter, Application, Mortage, User){
+
+        $scope.AppACL = new Parse.ACL();
+        $scope.AppACL.setRoleReadAccess("Administrator", true);
+        $scope.AppACL.setRoleReadAccess("Partner", true);
+        $scope.AppACL.setRoleWriteAccess("Administrator", true);
+        $scope.AppACL.setWriteAccess($rootScope.sessionUser, true);
+        $scope.AppACL.setReadAccess($rootScope.sessionUser, true);
 
         $scope.liabilitiesVals = {
             "debts" : [
@@ -327,68 +237,6 @@ var controllers = {};
             $scope.saveApp();
         });
 
-        // User handling functions
-
-        $scope.registerUser = function(){
-            var user = new User();
-            user.set("username", $scope.registerForm.email.$viewValue);
-            user.set("email", $scope.registerForm.email.$viewValue);
-            user.set("password", $scope.registerForm.password.$viewValue);
-
-            user.signUp(null, {
-                success: function(user) {
-                    $rootScope.sessionUser = user;
-                    $rootScope.$apply();
-                },
-                error: function(user, error) {
-                    alert("Error: " + error.code + " " + error.message);
-                }
-            });
-        };
-
-        $scope.loginError = "";
-        $scope.loginUser = function(){
-            Parse.User.logIn($scope.loginForm.email.$viewValue, $scope.loginForm.password.$viewValue, {
-                success: function(user) {
-                    $rootScope.sessionUser = user;
-                    $rootScope.$apply();
-                    $("#login").modal("hide");
-                },
-                error: function(user, error) {
-                    $scope.loginError = error.message;
-                    $scope.$apply();
-
-                    if (!$("#login .modal-dialog").hasClass("shake")) {
-                        $("#login .modal-dialog").addClass("shake");
-                    } else {
-                        $("#login .modal-dialog").removeClass("shake");
-                        setTimeout(function() {
-                            $("#login .modal-dialog").addClass("shake");
-                        }, 100);
-                    }
-
-                }
-            });
-        };
-
-        $scope.resetError = false;
-        $scope.resetSuccess = false;
-        $scope.forgotPass = function(){
-            Parse.User.requestPasswordReset($scope.forgotPassForm.email.$viewValue, {
-                success: function() {
-                    $scope.resetSuccess = true;
-                    $scope.resetError = false;
-                    $scope.$apply();
-                },
-                error: function(error) {
-                    $scope.resetSuccess = false;
-                    $scope.resetError = true;
-                    $scope.$apply();
-                }
-            });
-        };
-
-
         // END of user handling functions
         $scope.autoSaving = false;
         $scope.isAppSaving = function(){
@@ -434,6 +282,8 @@ var controllers = {};
         };
 
         $scope.Application = new Application();
+        $scope.Application.set("ACL", $scope.AppACL);
+
         $scope.Application.Application2 = false;
         $scope.Application.submited = false;
 
@@ -508,8 +358,12 @@ var controllers = {};
 
                             $scope.calculateMonthlyPayment();
                         }
-                        else
+                        else {
                             $scope.Application.user = val;
+                            $scope.AppACL.setWriteAccess($rootScope.sessionUser, true);
+                            $scope.AppACL.setReadAccess($rootScope.sessionUser, true);
+                            $scope.Application.set("ACL", $scope.AppACL);
+                        }
                     },
                     function(error){
                         $scope.Application.user = val;
@@ -1314,7 +1168,7 @@ var controllers = {};
         };
     }];
 
-    controllers.StaticCtrl = ['$scope', function($scope){
+    controllers.StaticCtrl = ['$rootScope', '$scope', '$window', function($rootScope, $scope, $window){
 
         $scope.faqIndex = -1;
         $scope.isFaqIndex = function(id){
@@ -1346,6 +1200,17 @@ var controllers = {};
                 "desc"  : "A: Once we have your approval, we will contact you to make arrangements.  We can meet at our office, or one of our mobile mortgage agents will be happy to come to you."
             }
         ];
+
+        angular.element($window).bind("scroll", function() {
+            if($rootScope.isActiveHow()){
+
+                if($('body').scrollTop() > $('.partner-howItworks').height()+50) {
+                    $rootScope.isHow = false;
+                    $rootScope.$apply();
+                }
+
+            }
+        });
 
 
     }];

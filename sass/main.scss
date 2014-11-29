@@ -1,15 +1,16 @@
 // Libraries
 @import 'libraries/fonts';
 @import 'libraries/variables';
-@import 'libraries/mixins';
+//@import 'libraries/mixins';
 
 // Vendor
 @import 'vendor/bootstrap/bootstrap';
 @import 'vendor/font-awesome/font-awesome';
 @import 'vendor/slick/slick';
-@import 'libraries/animations';
+@import 'vendor/jquery-ui';
 
 // Components
+@import 'components/animations';
 @import 'components/datePicker';
 @import 'components/body';
 @import 'components/buttons';
@@ -18,5 +19,8 @@
 
 // Sections
 @import 'sections/landing';
+@import 'sections/application';
 @import 'sections/partners';
+
+
 

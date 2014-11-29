@@ -114,3 +114,37 @@
     }
   }
 }
+
+
+.modalForm {
+  .bor-bottom{
+    border-bottom: 1px solid #eeeeee;
+  }
+
+  .form-group{
+    border-top: 1px solid #eeeeee;
+    margin: 0px !Important;
+    padding: 5px 0px;
+
+    &.invalid {
+      border-top: 1px solid $red;
+      border-bottom: 1px solid $red;
+    }
+
+    .form-control.ng-pristine.ng-invalid,
+    input{
+      border:none !important;
+      -webkit-box-shadow: none;
+      box-shadow: none;
+    }
+
+    input {
+      outline: none;
+      -webkit-border-radius: 0px;
+      -moz-border-radius: 0px;
+      border-radius: 0px;
+    }
+
+  }
+
+}

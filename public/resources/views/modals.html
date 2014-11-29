@@ -1,0 +1,223 @@
+<div>
+
+    <div class="modal fade close-special" id="register" tabindex="-1" role="dialog" aria-labelledby="registerLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                    <h4 class="modal-title text-center" id="registerLabel">Create an Account</h4>
+                </div>
+                <div class="modal-body text-center no-padding">
+
+                    <button class="btn btn-block btn-modal btn-facebook">Sign up with Facebook</button>
+                    <button class="btn btn-block btn-modal btn-google">Sign up with Google</button>
+
+                    <div class="modal-padding">
+                        <hr/>
+                        <h4 class="text-center cursor"
+                            ng-click="stepReg=true;">or Sign up with Email</h4>
+
+
+                        <div class="alert alert-success"
+                             ng-show="sessionUser != null">
+                            <strong>Congrats.</strong>  You're sucesfully registered on dyom.com. All your data will be saved so you can access it later.
+                        </div>
+                    </div>
+
+                    <form novalidate="true"
+                          role="form"
+                          class="modalForm text-left"
+                          name="registerForm"
+                          ng-submit="userHandler.register(registerForm)"
+                          autocomplete="off">
+
+                        <div ng-show="sessionUser == null && stepReg">
+                            <div class="form-group"
+                                 ng-class="{'invalid': registerForm.ufname.$invalid && !registerForm.ufname.$pristine}">
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Enter your first name"
+                                       required
+                                       ng-required="true"
+                                       name="ufname"
+                                       ng-minlength="3"
+                                       ng-model="ufname" />
+                            </div>
+                            <div class="form-group"
+                                 ng-class="{'invalid': registerForm.ulname.$invalid && !registerForm.ulname.$pristine}">
+                                <input type="text"
+                                       class="form-control"
+                                       placeholder="Enter your last name"
+                                       required
+                                       ng-minlength="3"
+                                       ng-required="true"
+                                       name="ulname"
+                                       ng-model="ulname" />
+                            </div>
+                            <div class="form-group"
+                                 ng-class="{'invalid': registerForm.email.$invalid && !registerForm.email.$pristine}">
+                                <input type="email"
+                                       class="form-control"
+                                       placeholder="Enter your email"
+                                       required
+                                       ng-required="true"
+                                       name="email"
+                                       ng-model="email" />
+                            </div>
+                            <div class="form-group"
+                                 ng-class="{'invalid': registerForm.password.$invalid && !registerForm.password.$pristine}">
+                                <input type="password"
+                                       class="form-control"
+                                       placeholder="Enter your password"
+                                       required
+                                       ng-required="true"
+                                       name="password"
+                                       ng-model="password"
+                                       ng-minlength="6" />
+                                <small class="text-danger padding-left" ng-show="registerForm.password.$invalid && !registerForm.password.$pristine">At leas 6 charachters long.</small>
+                            </div>
+                            <div class="form-group bor-bottom"
+                                 ng-class="{'invalid': registerForm.cpassword.$invalid && !registerForm.cpassword.$pristine}">
+                                <input type="password"
+                                       class="form-control"
+                                       placeholder="Confirm password"
+                                       required
+                                       ng-required="true"
+                                       name="cpassword"
+                                       password-match="password"
+                                       ng-model="cpassword"
+                                       ng-minlength="6" />
+                                <small class="text-danger padding-left" ng-show="registerForm.cpassword.$invalid && !registerForm.cpassword.$pristine">Passwords dosen't match.</small>
+                            </div>
+
+                            <div class="checkbox modal-padding">
+                                <label>
+                                    <input type="checkbox" name="news" ng-model="news" value="true"> Sign me up for Do your own mortgage news
+                                </label>
+                            </div>
+
+                            <button class="btn btn-block btn-modal btn-success"
+                                    ng-disabled="registerForm.$invalid">Sign up</button>
+
+                            <div class="modal-padding text-center">
+                                <small>By creating an account you agree to out privacy policy.</small>
+                            </div>
+
+                        </div>
+
+                    </form>
+
+                    <h5 class="cursor text-center small-margin-top-bottom">
+                        <a href="#login" data-toggle="modal" data-dismiss="modal">Already a member? Log in.</a>
+                    </h5>
+
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade close-special" id="login" tabindex="-1" role="dialog" aria-labelledby="loginLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <form novalidate="true"
+                      role="form"
+                      name="loginForm"
+                      ng-submit="userHandler.login(loginForm)"
+                      autocomplete="off">
+
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="loginLabel">Login</h4>
+                    </div>
+
+                    <div class="modal-body modalForm no-padding">
+
+                        <div class="form-group">
+                            <input type="email"
+                                   class="form-control"
+                                   placeholder="Enter your email"
+                                   required
+                                   ng-required="true"
+                                   name="email"
+                                   ng-model="email" />
+                        </div>
+                        <div class="form-group">
+                            <input type="password"
+                                   class="form-control"
+                                   placeholder="Enter your password"
+                                   required
+                                   ng-required="true"
+                                   name="password"
+                                   ng-model="password"
+                                   ng-minlength="6" />
+                        </div>
+
+                        <button class="btn btn-block btn-modal btn-success"
+                                ng-disabled="loginForm.$invalid">Log in</button>
+
+                        <div class="form-group modal-padding text-center">
+
+                            <div class="alert alert-danger"
+                                 ng-show="loginError.length>0">
+                                <strong>Error.</strong>  {{loginError}}
+                            </div>
+
+                            <small>
+                                <a href="#register"
+                                   data-dismiss="modal"
+                                   data-toggle="modal">Don't have account yet?</a><br/>
+                                <a href="#forgotPass"
+                                   data-dismiss="modal"
+                                   data-toggle="modal">Forgot password?</a>
+                            </small>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <div class="modal fade close-special" id="forgotPass" tabindex="-1" role="dialog" aria-labelledby="forgotPassLabel" aria-hidden="true">
+        <div class="modal-dialog modal-sm">
+            <div class="modal-content">
+                <form novalidate="true"
+                      role="form"
+                      name="forgotPassForm"
+                      ng-submit="userHandler.forgotPass(forgotPassForm)"
+                      autocomplete="off">
+                    <div class="modal-header text-center">
+                        <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+                        <h4 class="modal-title" id="forgotPassLabel">Forgot password?</h4>
+                    </div>
+                    <div class="modal-body modalForm no-padding">
+                        <div class="form-group">
+                            <input type="email"
+                                   class="form-control"
+                                   placeholder="Enter your email"
+                                   required
+                                   ng-required="true"
+                                   name="email"
+                                   ng-model="email" />
+                        </div>
+                        <button type="submit"
+                                class="btn btn-block btn-modal btn-primary"
+                                ng-disabled="forgotPassForm.$invalid">Send me new password</button>
+
+                        <div class="form-group modal-padding text-center">
+                            <div class="alert alert-success"
+                                 ng-show="resetSuccess">
+                                <strong>Success.</strong>  Password reset link was sent to your email.
+                            </div>
+
+                            <div class="alert alert-danger"
+                                 ng-show="resetError">
+                                <strong>Error.</strong>  We didn't find any user with this email in our database. Please check.
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+</div>

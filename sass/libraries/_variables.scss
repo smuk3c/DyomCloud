@@ -1,4 +1,4 @@
-$fa-font-path:        "../lib/fonts";
+$fa-font-path:        "../fonts";
 
 // Colors
 $blue:                #2880b9;
@@ -45,3 +45,14 @@ $slick-dot-size: 6px;
 $slick-opacity-default: .75;
 $slick-opacity-on-hover: 1;
 $slick-opacity-not-active: .25;
+
+$barColor: $blue;
+$overlayColor: #f5f5f5;
+$backColor: #2f3439;
+
+$step: 1;
+
+$loops: round(100 / $step);
+$increment: 360 / $loops;
+$half: round($loops / 2);
+
