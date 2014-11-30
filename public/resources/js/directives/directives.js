@@ -11,6 +11,17 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
         };
     }];
 
+    directives.isRole = ['$rootScope',function($rootScope){
+        return function(scope, element, attrs) {
+            $rootScope.sessionUser.checkAccess(attrs.isRole).then(function(rsp){
+                if(!rsp)
+                    element.addClass("ng-hide");
+                else
+                    element.removeClass("ng-hide");
+            });
+        };
+    }];
+
     directives.popOver = [function(){
         return function(scope, element, attrs) {
             $(element).popover({
@@ -140,13 +151,24 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
         };
     }];
 
-    directives.navCheck = [function(){
+    directives.navCheck = ['$rootScope', '$location', function($rootScope, $location){
         return function(scope, element, attrs) {
             $(window).scroll(function() {
                 if($(window).scrollTop()>30)
                     element.addClass("nav-scrolled");
                 else
                     element.removeClass("nav-scrolled");
+            });
+
+            function check(){
+                if($location.path() == "/" || $location.path() == "/become-partner")
+                    element.removeClass("appl-nav");
+                else
+                    element.addClass("appl-nav");
+            }
+
+            $rootScope.$on("$routeChangeSuccess", function (event, next, current) {
+                check();
             });
         };
     }];
@@ -277,6 +299,32 @@ define(['jquery', 'app', "facebook", "twitter", "jqueryVisible", 'bootstrap', 'd
                     //passwords are the same, else invalid
                     control.$setValidity("unique", n);
                 });
+            }
+        };
+    }];
+
+    directives.closeOut = ['$parse', '$document', function ($parse, $document){
+        return {
+            restrict: 'A',
+            link: function (scope, element, attr) {
+                var fn = $parse(attr.closeOut);
+
+                $document.bind('click', clickOutsideHandler);
+                element.bind('remove', function () {
+                    $document.unbind('click', clickOutsideHandler);
+                });
+
+                function clickOutsideHandler(event) {
+                    event.stopPropagation();
+                    var targetParents = $(event.target).parents();
+                    var inside = targetParents.index(element) !== -1;
+                    var on     = event.target === element[0];
+                    var outside = !inside && !on;
+
+                    if (outside) scope.$apply(function() {
+                        fn(scope, {$event:event});
+                    });
+                }
             }
         };
     }];

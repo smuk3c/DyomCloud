@@ -8672,41 +8672,57 @@ label {
     @media screen and (min-width: 751px) {
       .top-navigation .u-drop .drop-menu {
         display: block;
-        background: #2880b9;
+        background: #fff;
         position: absolute;
         width: 150px;
-        top: 60px;
+        top: 50px;
         right: 0px;
         -webkit-border-radius: 5px;
         -moz-border-radius: 5px;
         border-radius: 5px;
         margin: 0px;
-        padding: 0px; }
+        padding: 0px;
+        border: 1px solid #ccc;
+        -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+        box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175); }
         .top-navigation .u-drop .drop-menu:before {
           content: '';
           width: 0;
           height: 0;
           border-style: solid;
           border-width: 0 10px 10px 10px;
-          border-color: transparent transparent #287fb9 transparent;
+          border-color: transparent transparent #ccc transparent;
           position: absolute;
           top: -10px;
           right: 10px; }
+        .top-navigation .u-drop .drop-menu:after {
+          content: '';
+          width: 0;
+          height: 0;
+          border-style: solid;
+          border-width: 0 8px 8px 8px;
+          border-color: transparent transparent #fff transparent;
+          position: absolute;
+          top: -11px;
+          right: 11px; }
         .top-navigation .u-drop .drop-menu li {
           display: block;
           float: none;
-          width: 100%;
-          margin: 0px;
+          margin: 3px;
           padding: 0px; }
           .top-navigation .u-drop .drop-menu li:hover {
-            background: #3f9ad5; }
-          .top-navigation .u-drop .drop-menu li a,
-          .top-navigation .u-drop .drop-menu li a:hover {
+            background: #3f9ad5;
+            -webkit-border-radius: 3px;
+            -moz-border-radius: 3px;
+            border-radius: 3px; }
+          .top-navigation .u-drop .drop-menu li a {
             text-align: center;
             display: block;
-            width: 300;
             width: 100%;
-            color: #fff !Important; } }
+            color: #000 !Important; }
+          .top-navigation .u-drop .drop-menu li a:hover {
+            color: #fff !Important;
+            font-weight: 300; } }
   @media screen and (max-width: 991px) {
     .top-navigation .container {
       width: 100% !Important; }

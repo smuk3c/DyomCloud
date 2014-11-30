@@ -111,12 +111,18 @@ define(['jquery', 'app', 'parse', 'bootstrap'], function ($, app, Parse) {
 
     factories.User = ['$rootScope', '$q', function($rootScope, $q){
         var User = Parse.User.extend(
-            {},
             {
+                getName: function(){
+                    if(Parse.User.current()){
+                        return Parse.User.current().has("firstName") && Parse.User.current().get("firstName").length > 0 ? Parse.User.current().get("firstName") : "User";
+                    }
+                    else
+                        return "User";
+                },
                 checkAccess: function(roleName){
                     var defer = $q.defer();
 
-                    if(this.current()){
+                    if(Parse.User.current()){
 
                         var queryRole = new Parse.Query(Parse.Role);
                         queryRole.equalTo('name', roleName);
@@ -146,7 +152,9 @@ define(['jquery', 'app', 'parse', 'bootstrap'], function ($, app, Parse) {
                         defer.resolve(false);
 
                     return defer.promise;
-                },
+                }
+            },
+            {
                 logMeOut: function(){
                       Parse.User.logOut();
                       $rootScope.sessionUser =  this.current();
@@ -167,7 +175,7 @@ define(['jquery', 'app', 'parse', 'bootstrap'], function ($, app, Parse) {
                     });
 
                 },
-                login: function(data){
+                logMein: function(data){
 
                     Parse.User.logIn(data.email.$viewValue, data.password.$viewValue, {
                         success: function(user) {
@@ -215,6 +223,42 @@ define(['jquery', 'app', 'parse', 'bootstrap'], function ($, app, Parse) {
                 }
             }
         );
+
+        Object.defineProperty(User.prototype, "email", {
+            get: function() {
+                return this.get("email");
+            },
+            set: function(aValue) {
+                this.set("email", aValue);
+            }
+        });
+
+        Object.defineProperty(User.prototype, "firstName", {
+            get: function() {
+                return this.get("firstName");
+            },
+            set: function(aValue) {
+                this.set("firstName", aValue);
+            }
+        });
+
+        Object.defineProperty(User.prototype, "lastName", {
+            get: function() {
+                return this.get("lastName");
+            },
+            set: function(aValue) {
+                this.set("lastName", aValue);
+            }
+        });
+
+        Object.defineProperty(User.prototype, "newsletter", {
+            get: function() {
+                return this.get("newsletter");
+            },
+            set: function(aValue) {
+                this.set("newsletter", aValue);
+            }
+        });
         return User;
     }];
 

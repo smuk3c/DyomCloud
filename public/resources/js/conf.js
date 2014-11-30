@@ -3,11 +3,6 @@ define(['jquery', 'app','parse','services/services'], function ($, app, Parse) {
 
         $rootScope.sessionUser = User.current();
         $rootScope.userHandler = User;
-        $rootScope.isRole = function(roleName){
-//            User.checkAccess(roleName).then(function(rsp){
-//                return rsp;
-//            });
-        };
 
         /* MAIN CTRL */
         $rootScope.isThis = function(id){
@@ -82,14 +77,13 @@ define(['jquery', 'app','parse','services/services'], function ($, app, Parse) {
         });
 
         $rootScope.$on("$routeChangeStart", function (event, next, current) {
-           $('html, body').scrollTop(0);
-            $rootScope.togleDrop3 = false;
+           $rootScope.togleDrop3 = false;
 
            if(next.authenticate){
 
                if($rootScope.sessionUser){
 
-                   User.checkAccess(next.role).then(function(rsp){
+                   $rootScope.sessionUser.checkAccess(next.role).then(function(rsp){
                        if(!rsp)
                            $location.path("/");
                    });
@@ -98,9 +92,9 @@ define(['jquery', 'app','parse','services/services'], function ($, app, Parse) {
                    $location.path("/");
                    $("#login").modal("show");
                }
-
-
            }
+
+           $('html, body').scrollTop(0);
 
 
         });

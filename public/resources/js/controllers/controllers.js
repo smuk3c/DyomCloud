@@ -133,8 +133,12 @@ var controllers = {};
         $scope.AppACL.setRoleReadAccess("Administrator", true);
         $scope.AppACL.setRoleReadAccess("Partner", true);
         $scope.AppACL.setRoleWriteAccess("Administrator", true);
-        $scope.AppACL.setWriteAccess($rootScope.sessionUser, true);
-        $scope.AppACL.setReadAccess($rootScope.sessionUser, true);
+        $scope.AppACL.setRoleWriteAccess("Moderator", true);
+        $scope.AppACL.setRoleReadAccess("Moderator", true);
+        if($rootScope.sessionUser){
+            $scope.AppACL.setWriteAccess($rootScope.sessionUser, true);
+            $scope.AppACL.setReadAccess($rootScope.sessionUser, true);
+        }
 
         $scope.liabilitiesVals = {
             "debts" : [

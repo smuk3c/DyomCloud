@@ -1,5 +1,4 @@
 <nav class="top-navigation"
-     ng-class="{'appl-nav': !isThis('/') && !isThis('/become-partner')}"
      nav-check>
     <div class="container">
         <div class="row">
@@ -31,19 +30,19 @@
                         <!--</a>-->
                     <!--</li>-->
                     <li ng-if="sessionUser != null && !isThis('/become-partner')"
-                        class="u-drop">
+                        class="u-drop"
+                        close-out="handleClick(togleDrop3=false)">
                         <a href="#/user"
                            prevent-def
                            ng-click="togleDrop3 = !togleDrop3">
                             <img src="resources/img/user-placeholder.png" class="user-img">
-                            {{ sessionUser!=null && sessionUser.has("firstName") && sessionUser.get("firstName").length > 0 ? sessionUser.get("firstName") : "User"  }}
+                            {{ sessionUser.getName() }}
                              <i class="fa fa-angle-down"></i>
                         </a>
                         <ul class="drop-menu text-left"
                             ng-show="togleDrop3">
-                            <li ng-show="isRole('Administrator')" ><a href="#/admin"><i class="fa fa-dashboard"></i> Admin</a></li>
-                            <li><a href="#" ><i class="fa fa-pencil"></i> Edit personal info</a></li>
-                            <li><a href="#" ><i class="fa fa-database"></i> Dashboard</a></li>
+                            <li is-role="Administrator" class="ng-hide"><a href="#/admin" ng-click="togleDrop3 = !togleDrop3;"><i class="fa fa-dashboard"></i> Admin Dashboard</a></li>
+                            <li><a href="#" ng-click="togleDrop3 = !togleDrop3;"><i class="fa fa-database"></i> Dashboard</a></li>
                             <li><a href="#" prevent-def ng-click="togleDrop3 = !togleDrop3; userHandler.logMeOut()"><i class="fa fa-sign-out"></i> Logout</a></li>
                         </ul>
                     </li>
@@ -74,7 +73,8 @@
                         </a>
                     </li>
                     <li  ng-if="sessionUser == null">
-                        <a href="#/about"
+                        <a href="#"
+                           prevent-def
                            data-toggle="modal" data-target="#login"
                            ng-click="togleNav()">
                            <i class="fa fa-sign-in"></i>
